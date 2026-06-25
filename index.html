@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QVR Learning · Enhancing Customer Engagement with Virtual Communication Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ---- Color: core brand & neutrals ---- */
+  --ink-900:#0B1F2A; --ink-800:#102B38; --ink-700:#1B3B49;
+  --brand-700:#0E4D5C; --brand-600:#0F6E80; --brand-500:#138B9E;
+  --brand-100:#D6EBEF; --brand-50:#EAF5F7;
+
+  /* ---- Color: accents ---- */
+  --accent-500:#FF5A1F; --accent-600:#D8420C; --accent-700:#B8350A; --accent-100:#FFE3D6;
+  --lime-500:#C7F000; --lime-600:#A9CE00;
+
+  /* ---- Color: semantic ---- */
+  --success-600:#15875A; --success-700:#0F6B47; --success-50:#E4F4EC;
+  --warning-600:#A85C00; --warning-500:#C77400; --warning-50:#FBEFDD;
+  --danger-600:#CC3636; --danger-700:#A82A2A; --danger-50:#FBE7E7;
+  --info-600:#0F6E80;
+
+  /* ---- Color: surfaces & text ---- */
+  --canvas:#F6F8F9; --surface:#FFFFFF; --surface-2:#EDF1F3;
+  --border:#D3DBDF; --border-strong:#B6C2C8;
+  --text-primary:#0B1F2A; --text-secondary:#42525B; --text-tertiary:#6B7A82;
+  --text-on-dark:#E9F2F4; --text-on-dark-muted:#A8BEC6; --text-on-accent:#FFFFFF;
+
+  /* ---- Typography ---- */
+  --font-display:"Space Grotesk", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-body:"Inter", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fs-stat:3.815rem; --fs-display:3.052rem; --fs-h1:2.441rem; --fs-h2:1.953rem;
+  --fs-h3:1.563rem; --fs-h4:1.25rem; --fs-lead:1.125rem; --fs-body:1rem;
+  --fs-sm:0.875rem; --fs-xs:0.75rem;
+  --lh-tight:1.1; --lh-snug:1.25; --lh-body:1.6;
+  --tracking-tight:-0.02em; --tracking-label:0.08em;
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px;
+  --space-6:32px; --space-7:48px; --space-8:64px; --space-9:96px;
+
+  /* ---- Radius ---- */
+  --radius-xs:6px; --radius-sm:10px; --radius-md:14px; --radius-lg:20px;
+  --radius-xl:28px; --radius-pill:999px;
+
+  /* ---- Elevation ---- */
+  --shadow-1:0 1px 2px rgba(11,31,42,.06), 0 1px 1px rgba(11,31,42,.04);
+  --shadow-2:0 4px 12px rgba(11,31,42,.08), 0 2px 4px rgba(11,31,42,.05);
+  --shadow-3:0 12px 28px rgba(11,31,42,.12), 0 4px 10px rgba(11,31,42,.07);
+  --shadow-focus:0 0 0 3px rgba(15,110,128,.35);
+  --shadow-accent:0 6px 18px rgba(216,66,12,.30);
+
+  /* ---- Motion ---- */
+  --ease-standard:cubic-bezier(.2,.0,.0,1);
+  --ease-emphasis:cubic-bezier(.2,.7,.2,1);
+  --ease-exit:cubic-bezier(.4,.0,1,1);
+  --dur-1:120ms; --dur-2:180ms; --dur-3:280ms; --dur-4:420ms; --dur-5:650ms;
+  --motion-control:all var(--dur-2) var(--ease-standard);
+  --motion-emphatic:all var(--dur-4) var(--ease-emphasis);
+
+  /* ---- Gradients / motifs ---- */
+  --grad-progress:linear-gradient(90deg, var(--accent-500), var(--lime-500));
+  --grad-hero:radial-gradient(120% 140% at 85% -10%, #14384A 0%, var(--ink-900) 55%);
+  --focus-ring:var(--shadow-focus);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin:0; padding:0; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+  background: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1,h2,h3,h4 { font-family: var(--font-display); line-height: var(--lh-snug); letter-spacing: var(--tracking-tight); margin:0; }
+p { margin:0; }
+a { color: var(--brand-700); text-decoration: underline; text-underline-offset: 2px; }
+button { font-family: inherit; }
+
+.sr-only {
+  position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+.spritesheet { position:absolute; width:0; height:0; overflow:hidden; }
+.icon { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; flex:0 0 auto; }
+
+/* Focus everywhere */
+:focus { outline: none; }
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-xs);
+}
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible,
+label:focus-within, [tabindex]:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute; left: 50%; top: 0; transform: translate(-50%,-130%);
+  background: var(--accent-700); color:#fff; padding: var(--space-3) var(--space-5);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm); z-index: 200;
+  font-family: var(--font-display); font-weight:600; text-decoration:none;
+  transition: transform var(--dur-2) var(--ease-standard);
+}
+.skip-link:focus { transform: translate(-50%, 0); }
+
+/* ---- Stage shell ---- */
+.stage {
+  display:flex; flex-direction:column; min-height:100vh;
+  max-width: 1080px; margin: 0 auto; background: var(--canvas);
+  position: relative;
+}
+
+/* Appbar */
+.appbar {
+  position: sticky; top: 0; z-index: 60;
+  display:flex; align-items:center; gap: var(--space-4);
+  height: 64px; padding: 0 var(--space-5);
+  background: var(--ink-900); color: var(--text-on-dark);
+  box-shadow: var(--shadow-2);
+}
+.wordmark {
+  font-family: var(--font-display); font-weight:700; font-size: var(--fs-h4);
+  color:#fff; letter-spacing: var(--tracking-tight); display:flex; align-items:center; flex:0 0 auto;
+}
+.wordmark .dot { color: var(--accent-500); }
+.appbar-title {
+  flex:1 1 auto; text-align:center; font-size: var(--fs-sm); color: var(--text-on-dark-muted);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0;
+}
+.step-counter {
+  flex:0 0 auto; font-family: var(--font-mono); font-size: var(--fs-sm);
+  color: var(--text-on-dark); font-variant-numeric: tabular-nums;
+  background: var(--ink-700); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill);
+}
+
+/* Progress */
+.progress { background: var(--ink-800); padding: var(--space-3) var(--space-5) var(--space-4); position: sticky; top: 64px; z-index: 55; }
+.progress-track {
+  height: 6px; background: var(--ink-700); border-radius: var(--radius-pill); overflow:hidden; position: relative;
+}
+.progress-fill {
+  height: 100%; width: 0%; border-radius: var(--radius-pill);
+  background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 45%), var(--grad-progress);
+  transition: width var(--dur-4) var(--ease-emphasis);
+}
+.progress-fill.pulse::after {
+  content:""; position:absolute; right:0; top:0; bottom:0; width:18px;
+  background: radial-gradient(circle, rgba(199,240,0,.9), transparent 70%);
+  animation: limePulse var(--dur-5) var(--ease-standard) 1;
+}
+@keyframes limePulse { 0%{opacity:0;transform:scale(.6);} 30%{opacity:1;} 100%{opacity:0;transform:scale(1.6);} }
+
+.stepper { display:flex; flex-wrap:wrap; gap: var(--space-2); margin-top: var(--space-3); padding:0; list-style:none; }
+.step-dot {
+  width: 30px; height: 30px; border-radius: var(--radius-pill);
+  border: 2px solid var(--ink-700); background: transparent; color: var(--text-on-dark-muted);
+  font-family: var(--font-display); font-weight:600; font-size: var(--fs-xs);
+  display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  transition: var(--motion-control); padding:0;
+}
+.step-dot:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--brand-500); color:#fff; }
+.step-dot:disabled { cursor:not-allowed; opacity:.45; }
+.step-dot.visited { border-color: var(--brand-500); color: var(--text-on-dark); }
+.step-dot[aria-current="step"] {
+  background: var(--grad-progress); border-color: transparent; color: var(--ink-900);
+  box-shadow: var(--shadow-accent);
+}
+.step-dot .icon { width: 14px; height: 14px; }
+
+/* Main + screens */
+main#course { flex:1 1 auto; display:block; }
+.screen {
+  padding: var(--space-7) var(--space-5) var(--space-8);
+  animation: screenIn var(--dur-4) var(--ease-standard) 1;
+}
+@keyframes screenIn { from { opacity:0; transform: translateY(12px);} to {opacity:1; transform:none;} }
+.screen[hidden] { display:none !important; }
+.screen-inner { max-width: 820px; margin: 0 auto; }
+.screen-inner.wide { max-width: 980px; }
+
+/* Footer nav */
+.navbar {
+  position: sticky; bottom: 0; z-index: 60;
+  display:flex; align-items:center; justify-content:space-between; gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface); border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 12px rgba(11,31,42,.06);
+}
+.nav-hint { font-size: var(--fs-sm); color: var(--text-tertiary); text-align:right; flex:1 1 auto; }
+.nav-right { display:flex; align-items:center; gap: var(--space-4); }
+
+.credit {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  text-align:center; font-size: var(--fs-xs); color: var(--text-tertiary);
+  background: var(--canvas);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap: var(--space-2);
+  font-family: var(--font-display); font-weight:600; font-size: var(--fs-body);
+  padding: var(--space-3) var(--space-5); min-height: 48px;
+  border-radius: var(--radius-pill); border: 2px solid transparent; cursor:pointer;
+  transition: var(--motion-control); text-decoration:none; line-height:1;
+}
+.btn .icon { width: 18px; height: 18px; }
+.btn-primary { background: var(--accent-700); color:#fff; box-shadow: var(--shadow-accent); }
+.btn-primary:hover:not(:disabled) { background: var(--accent-600); transform: translateY(-1px); }
+.btn-primary:disabled { background: var(--surface-2); color: var(--text-tertiary); box-shadow:none; cursor:not-allowed; }
+.btn-secondary { background: var(--surface); color: var(--brand-700); border-color: var(--brand-600); }
+.btn-secondary:hover:not(:disabled) { background: var(--brand-50); border-color: var(--brand-700); transform: translateY(-1px); box-shadow: var(--shadow-1); }
+.btn-secondary:disabled { color: var(--text-tertiary); cursor:not-allowed; opacity:.6; }
+.btn-ghost { background: transparent; color: var(--brand-700); border-color: transparent; }
+.btn-ghost:hover:not(:disabled) { background: var(--surface-2); }
+.btn-ghost:disabled { color: var(--text-tertiary); cursor:not-allowed; opacity:.5; }
+.btn-sm { min-height: 40px; padding: var(--space-2) var(--space-4); font-size: var(--fs-sm); }
+.btn-dark { background: var(--lime-500); color: var(--ink-900); }
+.btn-dark:hover:not(:disabled) { background: var(--lime-600); transform: translateY(-1px); }
+
+/* ---- Shared content blocks ---- */
+.kicker {
+  font-family: var(--font-display); font-weight:600; font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-label); text-transform: uppercase;
+  color: var(--accent-700); margin-bottom: var(--space-3); display:inline-flex; align-items:center; gap: var(--space-2);
+}
+.kicker.on-dark { color: var(--accent-500); }
+h2.screen-title { font-size: var(--fs-h1); margin-bottom: var(--space-4); color: var(--text-primary); }
+.lead { font-size: var(--fs-lead); color: var(--text-secondary); margin-bottom: var(--space-5); }
+.body-copy { color: var(--text-secondary); margin-bottom: var(--space-4); }
+.section-label {
+  font-family: var(--font-display); font-weight:600; font-size: var(--fs-h4);
+  color: var(--text-primary); margin: var(--space-6) 0 var(--space-4);
+}
+
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: var(--space-6); box-shadow: var(--shadow-1); transition: var(--motion-control);
+}
+.card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+
+.icon-tile {
+  width: 48px; height: 48px; border-radius: var(--radius-sm); flex:0 0 auto;
+  background: var(--brand-50); color: var(--brand-700);
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.icon-tile .icon { width: 26px; height: 26px; }
+
+.ext-link {
+  display:inline-flex; align-items:center; gap: var(--space-2);
+  font-weight:600; font-size: var(--fs-sm); color: var(--brand-700);
+}
+.ext-link .icon { width: 16px; height: 16px; }
+
+.eyebrow {
+  font-family: var(--font-display); font-weight:600; font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--brand-600);
+  margin-bottom: var(--space-2); display:block;
+}
+
+/* Hero */
+.hero {
+  background: var(--grad-hero); color: var(--text-on-dark);
+  border-radius: var(--radius-xl); padding: var(--space-8) var(--space-7);
+  position: relative; overflow:hidden; box-shadow: var(--shadow-3);
+}
+.hero::before {
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(60% 70% at 90% 8%, rgba(255,90,31,.16), transparent 60%),
+    radial-gradient(50% 60% at 8% 100%, rgba(199,240,0,.10), transparent 60%);
+}
+.hero::after {
+  content:""; position:absolute; left:0; right:0; top:0; height:1px; pointer-events:none; z-index:1;
+  background: linear-gradient(90deg, transparent, rgba(199,240,0,.5), rgba(255,90,31,.5), transparent);
+}
+.hero .kicker.on-dark, .hero-headline, .hero .chips { position:relative; z-index:1; }
+.hero .ambient-route {
+  position:absolute; inset:0; pointer-events:none; opacity:.5;
+}
+.hero-headline { font-size: var(--fs-display); color:#fff; margin-bottom: var(--space-5); max-width: 16ch; }
+.hero .body-copy { color: var(--text-on-dark-muted); position:relative; z-index:1; }
+.hero p strong { color: var(--text-on-dark); }
+.chips { display:flex; flex-wrap:wrap; gap: var(--space-3); margin-top: var(--space-6); position:relative; z-index:1; }
+.chip {
+  display:inline-flex; align-items:center; gap: var(--space-2);
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+  color: var(--text-on-dark); padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight:500;
+}
+
+/* Objectives list */
+.obj-list { list-style:none; padding:0; margin: var(--space-4) 0 0; counter-reset: obj; }
+.obj-list li {
+  position: relative; padding: var(--space-4) var(--space-4) var(--space-4) var(--space-8);
+  border-bottom: 1px solid var(--border); color: var(--text-secondary);
+}
+.obj-list li::before {
+  counter-increment: obj; content: counter(obj);
+  position:absolute; left: var(--space-3); top: var(--space-4);
+  width: 30px; height: 30px; border-radius: var(--radius-pill);
+  background: var(--brand-50); color: var(--brand-700);
+  font-family: var(--font-display); font-weight:700; font-size: var(--fs-sm);
+  display:flex; align-items:center; justify-content:center;
+}
+.obj-list li strong { color: var(--text-primary); }
+
+/* Roadmap */
+.roadmap { list-style:none; padding:0; margin: var(--space-4) 0 0; display:grid; gap: var(--space-3); }
+.roadmap-card {
+  display:flex; align-items:center; gap: var(--space-4);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: var(--space-4); transition: var(--motion-control);
+}
+.roadmap-card:hover { box-shadow: var(--shadow-1); border-color: var(--border-strong); }
+.roadmap-num {
+  width: 36px; height: 36px; flex:0 0 auto; border-radius: var(--radius-pill);
+  background: var(--ink-900); color: var(--lime-500);
+  font-family: var(--font-display); font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+.roadmap-card .rc-title { font-family: var(--font-display); font-weight:600; color: var(--text-primary); }
+.roadmap-card .rc-desc { font-size: var(--fs-sm); color: var(--text-tertiary); }
+
+/* Card grid */
+.card-grid { display:grid; gap: var(--space-4); margin-top: var(--space-5); grid-template-columns: 1fr; }
+@media (min-width: 680px){ .card-grid { grid-template-columns: 1fr 1fr; } }
+.explainer-card { display:flex; flex-direction:column; gap: var(--space-3); }
+.explainer-card .ec-head { display:flex; align-items:flex-start; gap: var(--space-3); }
+.explainer-card h3 { font-size: var(--fs-h4); color: var(--text-primary); }
+.explainer-card .ec-body { font-size: var(--fs-sm); color: var(--text-secondary); }
+.why-line {
+  font-size: var(--fs-sm); color: var(--text-primary);
+  border-left: 3px solid var(--brand-500); padding: var(--space-2) var(--space-3);
+  background: var(--brand-50); border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+.why-line strong { color: var(--brand-700); }
+
+.callout {
+  background: var(--brand-50); border: 1px solid var(--brand-100); border-radius: var(--radius-md);
+  padding: var(--space-5); margin: var(--space-5) 0;
+}
+.callout h3 { font-size: var(--fs-h4); color: var(--brand-700); margin-bottom: var(--space-3); display:flex; align-items:center; gap: var(--space-2); }
+.preflight-list { list-style:none; padding:0; margin:0; display:grid; gap: var(--space-2); }
+.preflight-list li { display:flex; align-items:flex-start; gap: var(--space-3); font-size: var(--fs-sm); color: var(--text-secondary); }
+.preflight-check {
+  width: 22px; height: 22px; flex:0 0 auto; border-radius: var(--radius-xs);
+  border: 2px solid var(--border-strong); background: var(--surface);
+  display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  transition: var(--motion-control); color: transparent; margin-top: 1px;
+}
+.preflight-check[aria-checked="true"] { background: var(--success-600); border-color: var(--success-600); color:#fff; }
+.preflight-check .icon { width:14px; height:14px; }
+
+/* Sub-stepper */
+.substepper { margin-top: var(--space-5); }
+.subdots { display:flex; gap: var(--space-2); margin-bottom: var(--space-4); flex-wrap:wrap; }
+.subdot {
+  width: 12px; height: 12px; border-radius: var(--radius-pill);
+  background: var(--border-strong); border: none; cursor:pointer; padding:0;
+  transition: var(--motion-control);
+}
+.subdot.active { background: var(--accent-600); transform: scale(1.25); }
+.subdot:hover { background: var(--brand-500); }
+.substep-panel {
+  display:grid; gap: var(--space-5); grid-template-columns: 1fr;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: var(--space-5); box-shadow: var(--shadow-1); min-height: 220px;
+}
+@media (min-width: 700px){ .substep-panel.with-mock { grid-template-columns: 1.1fr .9fr; align-items:center; } }
+.substep-num {
+  font-family: var(--font-display); font-weight:700; font-size: var(--fs-stat);
+  color: var(--accent-100); line-height:1; margin-bottom: var(--space-2);
+}
+.substep-title { font-size: var(--fs-h3); color: var(--text-primary); margin-bottom: var(--space-3); }
+.substep-action { color: var(--text-secondary); margin-bottom: var(--space-3); }
+.substep-action strong { color: var(--text-primary); }
+.substep-why {
+  font-size: var(--fs-sm); color: var(--text-primary);
+  border-left: 3px solid var(--lime-600); padding: var(--space-2) var(--space-3); background: var(--surface-2);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+.substep-why strong { color: var(--brand-700); }
+.mock-screen {
+  background: var(--ink-900); border-radius: var(--radius-md); padding: var(--space-4);
+  color: var(--text-on-dark); min-height: 160px; display:flex; flex-direction:column; gap: var(--space-3);
+  border: 1px solid var(--ink-700);
+}
+.mock-bar { display:flex; gap: var(--space-2); align-items:center; }
+.mock-dot { width:10px; height:10px; border-radius:50%; background: var(--ink-700); }
+.mock-body { flex:1 1 auto; display:flex; align-items:center; justify-content:center; gap: var(--space-3); flex-wrap:wrap; }
+.mock-pill {
+  background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); color: var(--text-on-dark);
+  border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); font-size: var(--fs-xs);
+  display:inline-flex; align-items:center; gap: var(--space-2);
+}
+.mock-pill.hot { background: var(--accent-700); border-color: var(--accent-600); color:#fff; }
+.mock-pill.lime { background: var(--lime-500); border-color: var(--lime-500); color: var(--ink-900); }
+.mock-pill .icon { width:16px; height:16px; }
+.substep-nav { display:flex; justify-content:space-between; gap: var(--space-3); margin-top: var(--space-4); }
+
+.fallback-list { list-style: decimal; padding-left: var(--space-6); margin-top: var(--space-5); color: var(--text-secondary); }
+.fallback-list li { margin-bottom: var(--space-3); }
+.fallback-list strong { color: var(--text-primary); }
+
+/* Tips cards */
+.tip-grid { display:grid; gap: var(--space-4); margin-top: var(--space-5); grid-template-columns:1fr; }
+@media (min-width: 680px){ .tip-grid { grid-template-columns: 1fr 1fr; } }
+.tip-card { display:flex; flex-direction:column; gap: var(--space-3); }
+.tip-card .tip-head { display:flex; align-items:center; gap: var(--space-3); }
+.tip-card h3 { font-size: var(--fs-h4); color: var(--text-primary); }
+.tip-do { font-size: var(--fs-sm); color: var(--text-secondary); }
+.tip-do strong { color: var(--text-primary); }
+.tip-reason {
+  font-size: var(--fs-sm); color: var(--text-primary); margin-top:auto;
+  border-left: 3px solid var(--accent-600); padding: var(--space-2) var(--space-3);
+  background: var(--accent-100); border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+.tip-reason strong { color: var(--accent-700); }
+
+.small-print { font-size: var(--fs-sm); color: var(--text-tertiary); margin-top: var(--space-5); font-style: italic; }
+.deeper-links { margin-top: var(--space-4); display:flex; flex-wrap:wrap; gap: var(--space-4); }
+
+/* Knowledge check */
+.quiz-form { display:grid; gap: var(--space-6); margin-top: var(--space-5); }
+.q-fieldset { border:none; padding:0; margin:0; }
+.q-fieldset legend {
+  font-family: var(--font-display); font-weight:600; font-size: var(--fs-h3);
+  color: var(--text-primary); padding:0; margin-bottom: var(--space-2); line-height: var(--lh-snug);
+}
+.q-num { color: var(--accent-700); font-weight:700; }
+.q-options { display:grid; gap: var(--space-3); margin-top: var(--space-3); }
+.opt { position: relative; }
+.opt input[type="radio"] {
+  position:absolute; opacity:0; width:1px; height:1px; pointer-events:none;
+}
+.opt label {
+  display:flex; align-items:flex-start; gap: var(--space-3);
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5); cursor:pointer; transition: var(--motion-control);
+  color: var(--text-primary); min-height: 48px;
+}
+.opt label:hover { border-color: var(--brand-500); transform: translateY(-1px); box-shadow: var(--shadow-1); }
+.opt input:checked + label { border-color: var(--brand-600); background: var(--brand-50); }
+.opt input:focus-visible + label { box-shadow: var(--shadow-focus); }
+.opt input:disabled + label { cursor: default; }
+.opt input:disabled + label:hover { transform:none; box-shadow:none; }
+.opt-marker {
+  width: 22px; height: 22px; flex:0 0 auto; border-radius: var(--radius-pill);
+  border: 2px solid var(--border-strong); display:inline-flex; align-items:center; justify-content:center;
+  margin-top: 1px; color:transparent; transition: var(--motion-control);
+}
+.opt input:checked + label .opt-marker { border-color: var(--brand-600); background: var(--brand-600); color:#fff; }
+.opt-marker .icon { width:13px; height:13px; }
+.opt-text { flex:1 1 auto; }
+/* resolved states */
+.opt.is-correct label { border-color: var(--success-600); background: var(--success-50); }
+.opt.is-correct .opt-marker { border-color: var(--success-600); background: var(--success-600); color:#fff; }
+.opt.is-incorrect label { border-color: var(--danger-600); background: var(--danger-50); }
+.opt.is-incorrect .opt-marker { border-color: var(--danger-600); background: var(--danger-600); color:#fff; }
+.opt.is-reveal label { border: 2px dashed var(--success-600); background: var(--success-50); }
+.opt.is-reveal .opt-marker { border-color: var(--success-600); color: var(--success-600); }
+.opt.is-correct label { box-shadow: inset 4px 0 0 var(--success-600), 0 4px 14px rgba(21,135,90,.14); }
+.opt.is-incorrect label { box-shadow: inset 4px 0 0 var(--danger-600), 0 4px 14px rgba(204,54,54,.14); }
+.opt.is-reveal label { box-shadow: inset 4px 0 0 var(--success-600); }
+.opt-feedback {
+  display:none; font-size: var(--fs-sm); margin-top: var(--space-2);
+  padding-left: calc(22px + var(--space-3)); color: var(--text-secondary);
+}
+.opt.show-feedback .opt-feedback { display:block; }
+.opt.is-correct .opt-feedback, .opt.is-reveal .opt-feedback { color: var(--success-700); }
+.opt.is-incorrect .opt-feedback { color: var(--danger-700); }
+.q-status { margin-top: var(--space-3); }
+.q-rationale {
+  display:none; font-size: var(--fs-sm); color: var(--text-secondary);
+  background: var(--surface-2); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-3); border-left: 3px solid var(--brand-500);
+}
+.q-rationale.show { display:block; }
+.q-rationale strong { color: var(--brand-700); }
+.q-tag {
+  display:none; align-items:center; gap: var(--space-2); font-weight:600; font-size: var(--fs-sm);
+  margin-top: var(--space-3);
+}
+.q-tag.show { display:inline-flex; }
+.q-tag.correct { color: var(--success-700); }
+.q-tag.incorrect { color: var(--danger-700); }
+.q-tag .icon { width:18px; height:18px; }
+.q-retry-wrap { margin-top: var(--space-3); display:none; }
+.q-retry-wrap.show { display:block; }
+
+.shake { animation: shake var(--dur-3) var(--ease-standard) 1; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-4px);} 40%{transform:translateX(4px);} 60%{transform:translateX(-4px);} 80%{transform:translateX(4px);} }
+.settle { animation: settle var(--dur-3) var(--ease-emphasis) 1; }
+@keyframes settle { 0%{transform:scale(1);} 50%{transform:scale(1.02);} 100%{transform:scale(1);} }
+
+/* Results band */
+.results-band {
+  display:none; background: var(--ink-900); color: var(--text-on-dark);
+  border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-3); gap: var(--space-6); align-items:center; grid-template-columns: 1fr;
+}
+.results-band.show { display:grid; }
+@media (min-width: 620px){ .results-band.show { grid-template-columns: auto 1fr; } }
+.results-band:focus-visible { box-shadow: var(--shadow-3), var(--shadow-focus); }
+.results-band.show { margin-top: var(--space-2); }
+.score-ring { width: 140px; height: 140px; position: relative; margin: 0 auto; }
+.score-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+.score-ring .ring-track { stroke: var(--ink-700); }
+.score-ring .ring-fill { stroke: url(#ringGrad); stroke-linecap: round; transition: stroke-dashoffset var(--dur-5) var(--ease-emphasis); }
+.score-ring-label {
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.score-ring-num { font-family: var(--font-display); font-weight:700; font-size: var(--fs-stat); line-height:1; color:#fff; }
+.score-ring-den { font-size: var(--fs-sm); color: var(--text-on-dark-muted); }
+.results-text .score-line { font-family: var(--font-display); font-weight:600; font-size: var(--fs-h3); color:#fff; margin-bottom: var(--space-2); }
+.pass-state { display:inline-flex; align-items:center; gap: var(--space-2); font-weight:600; padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); font-size: var(--fs-sm); margin-bottom: var(--space-3); }
+.pass-state .icon { width:18px; height:18px; }
+.pass-state.pass { background: rgba(21,135,90,.25); color: #8fe3bd; }
+.pass-state.fail { background: rgba(204,54,54,.22); color: #f3b0b0; }
+.mini-summary { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--text-on-dark-muted); margin-bottom: var(--space-3); }
+.tier-msg { color: var(--text-on-dark); margin-bottom: var(--space-4); }
+.tier-msg strong { color: var(--lime-500); }
+.results-actions { display:flex; flex-wrap:wrap; gap: var(--space-3); }
+.kc-helper { font-size: var(--fs-sm); color: var(--text-tertiary); }
+
+/* Practice transition */
+.transition-hero {
+  background: var(--grad-hero); color: var(--text-on-dark); border-radius: var(--radius-xl);
+  padding: var(--space-8) var(--space-7); text-align:center; position:relative; overflow:hidden;
+  box-shadow: var(--shadow-3);
+}
+.transition-hero h2 { color:#fff; font-size: var(--fs-display); margin-bottom: var(--space-4); }
+.transition-hero .body-copy { color: var(--text-on-dark-muted); max-width: 52ch; margin: 0 auto; }
+.spark {
+  position:absolute; width:10px; height:10px; border-radius:50%; pointer-events:none;
+  animation: sparkFloat var(--dur-5) var(--ease-emphasis) 1 forwards;
+}
+
+/* Scenario / faux Teams */
+.teams-ui {
+  background: var(--ink-900); border-radius: var(--radius-lg); overflow:hidden;
+  border: 1px solid var(--ink-700); box-shadow: var(--shadow-3); margin-top: var(--space-5);
+}
+.teams-stage { display:grid; gap: var(--space-3); padding: var(--space-4); grid-template-columns:1fr; }
+@media (min-width: 760px){ .teams-stage { grid-template-columns: 1.6fr 1fr; } }
+.tiles { display:grid; gap: var(--space-3); grid-template-columns: 1fr 1fr; align-content:start; }
+.tile {
+  background: linear-gradient(160deg, var(--ink-800), var(--ink-900));
+  border: 1px solid var(--ink-700); border-radius: var(--radius-md);
+  aspect-ratio: 16/10; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position: relative; color: var(--text-on-dark); transition: var(--motion-control); padding: var(--space-3);
+}
+.tile.joined-later { opacity:.35; }
+.tile.is-live { opacity:1; border-color: var(--brand-500); box-shadow: inset 0 0 40px rgba(11,31,42,.55); }
+.tile.speaking { box-shadow: 0 0 0 2px var(--lime-500), 0 0 18px rgba(199,240,0,.35); animation: speakPulse var(--dur-5) var(--ease-standard) infinite; }
+@keyframes speakPulse { 0%,100%{ box-shadow:0 0 0 2px var(--lime-500), 0 0 12px rgba(199,240,0,.25);} 50%{ box-shadow:0 0 0 3px var(--lime-500), 0 0 22px rgba(199,240,0,.45);} }
+.tile-avatar {
+  width: 54px; height: 54px; border-radius: var(--radius-pill); background: var(--brand-600); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight:700; font-size: var(--fs-h4);
+}
+.tile-name { font-size: var(--fs-xs); margin-top: var(--space-2); text-align:center; color: var(--text-on-dark-muted); }
+.tile-role { font-size: 10px; color: var(--text-tertiary); }
+.tile-cam { position:absolute; top: var(--space-2); right: var(--space-2); color: var(--lime-500); background: rgba(11,31,42,.55); border-radius: var(--radius-pill); padding: 3px; line-height:0; }
+.tile-cam .icon { width:16px; height:16px; }
+.tile-reaction { position:absolute; bottom: var(--space-2); font-size: var(--fs-h3); animation: pop var(--dur-4) var(--ease-emphasis) 1; }
+@keyframes pop { 0%{transform:scale(0);} 60%{transform:scale(1.3);} 100%{transform:scale(1);} }
+.tile-share {
+  grid-column: 1 / -1; aspect-ratio: auto; min-height: 120px; background: var(--ink-800);
+  border: 1px solid var(--brand-600); padding: var(--space-4); align-items:stretch; justify-content:flex-start; display:none;
+}
+.tile-share.show { display:flex; }
+.share-head { display:flex; align-items:center; gap: var(--space-2); font-size: var(--fs-xs); color: var(--lime-500); margin-bottom: var(--space-3); }
+.share-map {
+  flex:1 1 auto; border-radius: var(--radius-sm); background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 8px, transparent 8px 16px), var(--ink-900);
+  display:flex; align-items:center; justify-content:center; position:relative; min-height:80px;
+}
+.share-route { color: var(--accent-500); font-weight:600; font-size: var(--fs-sm); display:flex; align-items:center; gap: var(--space-2); }
+.share-rate { margin-top: var(--space-3); font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--lime-500); }
+
+.chat-panel {
+  background: var(--ink-800); border: 1px solid var(--ink-700); border-radius: var(--radius-md);
+  display:flex; flex-direction:column; min-height: 200px;
+}
+.chat-head { padding: var(--space-3) var(--space-4); border-bottom:1px solid var(--ink-700); font-size: var(--fs-sm); color: var(--text-on-dark); display:flex; align-items:center; gap: var(--space-2); }
+.chat-head .icon { width:16px; height:16px; color: var(--brand-500); }
+.chat-body { flex:1 1 auto; padding: var(--space-3); display:flex; flex-direction:column; gap: var(--space-3); overflow:auto; }
+.chat-empty { color: var(--text-tertiary); font-size: var(--fs-xs); margin:auto; text-align:center; }
+.chat-msg { background: var(--ink-700); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); }
+.chat-msg .who { font-size: 10px; color: var(--lime-500); font-weight:600; display:block; margin-bottom:2px; }
+.chat-msg .txt { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-on-dark); white-space:pre-wrap; word-break:break-word; }
+
+.control-bar {
+  display:flex; align-items:center; justify-content:center; gap: var(--space-3); flex-wrap:wrap;
+  padding: var(--space-3); background: var(--ink-800); border-top: 1px solid var(--ink-700);
+}
+.ctrl {
+  width: 44px; height: 44px; border-radius: var(--radius-pill); border:1px solid var(--ink-700);
+  background: var(--ink-700); color: var(--text-on-dark); display:flex; align-items:center; justify-content:center;
+}
+.ctrl .icon { width:20px; height:20px; }
+.ctrl.active { background: var(--brand-600); color:#fff; }
+.ctrl.leave { background: var(--danger-600); color:#fff; border-color: var(--danger-600); }
+.ctrl-label { font-size:10px; color: var(--text-on-dark-muted); }
+.ctrl-group { display:flex; flex-direction:column; align-items:center; gap:2px; }
+
+.transcript {
+  background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-md);
+  padding: var(--space-5); margin-top: var(--space-5);
+}
+.turn { padding: var(--space-3) 0; border-bottom: 1px dashed var(--border); }
+.turn:last-child { border-bottom:none; }
+.turn .stage-note { font-style: italic; color: var(--text-tertiary); font-size: var(--fs-sm); }
+.turn .speaker { font-family: var(--font-display); font-weight:700; color: var(--brand-700); }
+.turn .speaker.carrier { color: var(--accent-700); }
+.turn .line { color: var(--text-primary); }
+.turn .chat-drop { font-family: var(--font-mono); font-size: var(--fs-sm); background: var(--surface-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-xs); display:inline-block; margin-top: var(--space-2); color: var(--brand-700); }
+.annotations { display:flex; flex-direction:column; gap: var(--space-2); margin-top: var(--space-3); }
+.annot {
+  display:flex; align-items:flex-start; gap: var(--space-2); font-size: var(--fs-sm);
+  padding: var(--space-2) var(--space-3); border-radius: var(--radius-xs);
+}
+.annot.tool { background: var(--brand-50); color: var(--brand-700); border-left: 3px solid var(--brand-600); }
+.annot.trust { background: var(--success-50); color: var(--success-700); border-left: 3px solid var(--success-600); }
+.annot.watch { background: var(--warning-50); color: var(--warning-600); border-left: 3px solid var(--warning-500); }
+.annot-badge { font-weight:700; flex:0 0 auto; }
+
+.decision {
+  background: var(--ink-900); color: var(--text-on-dark); border-radius: var(--radius-md);
+  padding: var(--space-5); margin: var(--space-4) 0;
+}
+.decision .d-eyebrow { color: var(--lime-500); font-weight:700; font-size: var(--fs-xs); letter-spacing: var(--tracking-label); text-transform:uppercase; display:flex; align-items:center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.decision .d-prompt { color:#fff; font-size: var(--fs-h4); margin-bottom: var(--space-4); }
+.d-options { display:grid; gap: var(--space-3); }
+.d-option {
+  text-align:left; display:flex; align-items:flex-start; gap: var(--space-3);
+  background: var(--ink-800); border: 2px solid var(--ink-700); border-radius: var(--radius-sm);
+  padding: var(--space-4); color: var(--text-on-dark); cursor:pointer; transition: var(--motion-control); width:100%;
+}
+.d-option:hover:not(:disabled) { border-color: var(--brand-500); transform: translateY(-1px); }
+.d-option .d-key { font-family: var(--font-display); font-weight:700; color: var(--lime-500); flex:0 0 auto; }
+.d-option.chosen { border-color: var(--brand-500); background: var(--ink-700); }
+.d-option.best { border-color: var(--success-600); }
+.d-option.best .d-mark { color: var(--success-600); }
+.d-option.best { box-shadow: 0 0 0 1px var(--success-600), 0 6px 18px rgba(21,135,90,.22); }
+.d-option.best { background: rgba(21,135,90,.10); }
+.d-option.chosen.best { background: rgba(21,135,90,.16); }
+.d-option:disabled { cursor: default; }
+.d-mark { margin-left:auto; color: transparent; flex:0 0 auto; }
+.d-mark .icon { width: 18px; height:18px; }
+.d-reveal { display:none; margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--ink-700); }
+.d-reveal.show { display:block; }
+.d-reveal .reveal-did { color: var(--text-on-dark); margin-bottom: var(--space-3); }
+.d-reveal .reveal-why {
+  background: rgba(21,135,90,.18); border-left: 3px solid var(--success-600);
+  padding: var(--space-3) var(--space-4); border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  font-size: var(--fs-sm); color: #bfe9d3;
+}
+.d-reveal .reveal-why strong { color: #8fe3bd; }
+
+.setup-card {
+  background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-md);
+  padding: var(--space-5); margin-top: var(--space-5);
+}
+.setup-card h3 { font-size: var(--fs-h4); color: var(--text-primary); margin-bottom: var(--space-3); }
+.setup-card .setup-row { margin-bottom: var(--space-3); }
+.setup-card .setup-label { font-family: var(--font-display); font-weight:600; color: var(--brand-700); font-size: var(--fs-sm); display:block; }
+.setup-card .setup-text { color: var(--text-secondary); font-size: var(--fs-sm); }
+.setup-card strong { color: var(--text-primary); }
+
+/* Reflection */
+.reflect-grid { display:grid; gap: var(--space-5); margin-top: var(--space-5); }
+.field-label { font-family: var(--font-display); font-weight:600; font-size: var(--fs-h4); color: var(--text-primary); display:block; margin-bottom: var(--space-2); }
+.field-hint { font-size: var(--fs-sm); color: var(--text-tertiary); margin-bottom: var(--space-2); font-style: italic; }
+textarea, input[type="text"] {
+  width:100%; font-family: var(--font-body); font-size: var(--fs-body); color: var(--text-primary);
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4); transition: var(--motion-control); resize: vertical;
+}
+textarea { min-height: 80px; line-height: var(--lh-body); overflow:hidden; }
+textarea:focus, input[type="text"]:focus { border-color: var(--brand-500); }
+.field-saved { font-size: var(--fs-xs); color: var(--text-tertiary); margin-top: var(--space-1); display:flex; align-items:center; gap: var(--space-1); }
+.field-saved .icon { width:13px; height:13px; color: var(--success-600); }
+.has-content { border-left: 3px solid var(--brand-500); }
+
+/* Planner */
+.planner-layout { display:grid; gap: var(--space-6); grid-template-columns:1fr; margin-top: var(--space-5); }
+@media (min-width: 820px){ .planner-layout { grid-template-columns: 1.3fr .9fr; align-items:start; } }
+.planner-fields { display:grid; gap: var(--space-5); }
+.segmented {
+  display:inline-flex; background: var(--surface-2); border-radius: var(--radius-pill);
+  padding: 4px; border: 1px solid var(--border); gap: 4px;
+}
+.segmented button {
+  border:none; background:transparent; padding: var(--space-2) var(--space-5); border-radius: var(--radius-pill);
+  font-family: var(--font-display); font-weight:600; color: var(--text-secondary); cursor:pointer;
+  transition: var(--motion-control); min-height: 40px;
+}
+.segmented button[aria-pressed="true"] { background: var(--brand-600); color:#fff; box-shadow: var(--shadow-1); }
+.tool-chips { display:flex; flex-wrap:wrap; gap: var(--space-3); margin-top: var(--space-2); }
+.tool-chip {
+  display:inline-flex; align-items:center; gap: var(--space-2);
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-4); font-weight:600; color: var(--text-secondary); cursor:pointer;
+  transition: var(--motion-control); min-height: 44px; font-size: var(--fs-sm);
+}
+.tool-chip .icon { width:16px; height:16px; }
+.tool-chip:hover:not(:disabled) { border-color: var(--brand-500); transform: translateY(-1px); }
+.tool-chip[aria-pressed="true"] { background: var(--brand-50); border-color: var(--brand-600); color: var(--brand-700); }
+.tool-chip:disabled { opacity:.5; cursor:not-allowed; }
+.chip-count { font-size: var(--fs-sm); color: var(--text-tertiary); margin-top: var(--space-2); }
+.chip-count.warn { color: var(--warning-600); }
+
+.summary-panel {
+  background: var(--ink-900); color: var(--text-on-dark); border-radius: var(--radius-md);
+  padding: var(--space-5); position: sticky; top: 140px; box-shadow: var(--shadow-2);
+}
+.summary-panel h3 { color:#fff; font-size: var(--fs-h4); margin-bottom: var(--space-4); display:flex; align-items:center; gap: var(--space-2); }
+.summary-panel h3 .icon { color: var(--lime-500); }
+.summary-item { margin-bottom: var(--space-3); padding-bottom: var(--space-3); border-bottom: 1px solid var(--ink-700); }
+.summary-item:last-of-type { border-bottom:none; }
+.summary-key { font-size: var(--fs-xs); letter-spacing: var(--tracking-label); text-transform:uppercase; color: var(--brand-500); font-weight:600; display:block; margin-bottom:2px; }
+.summary-val { color: var(--text-on-dark); font-size: var(--fs-sm); word-break: break-word; }
+.summary-val.empty { color: var(--text-tertiary); font-style: italic; }
+.summary-empty { color: var(--text-on-dark-muted); font-size: var(--fs-sm); font-style: italic; }
+.download-row { display:flex; flex-wrap:wrap; gap: var(--space-3); margin-top: var(--space-5); }
+.download-help { font-size: var(--fs-sm); color: var(--text-tertiary); margin-top: var(--space-3); }
+.download-err { color: var(--danger-600); font-size: var(--fs-sm); margin-top: var(--space-2); display:none; align-items:center; gap: var(--space-2); }
+.download-err.show { display:flex; }
+
+/* Summary screen */
+.summary-feature {
+  background: var(--ink-900); color: var(--text-on-dark); border-radius: var(--radius-xl);
+  padding: var(--space-8) var(--space-7); position: relative; overflow:hidden; box-shadow: var(--shadow-3);
+}
+.summary-feature h2 { color:#fff; font-size: var(--fs-display); margin-bottom: var(--space-5); }
+.summary-feature .kicker.on-dark .icon { color: var(--lime-500); }
+.recap-list { list-style:none; padding:0; margin: var(--space-4) 0; display:grid; gap: var(--space-3); }
+.recap-list li { display:flex; align-items:flex-start; gap: var(--space-3); color: var(--text-on-dark); }
+.recap-check { color: var(--lime-500); flex:0 0 auto; margin-top: 2px; }
+.recap-check .icon { width:22px; height:22px; }
+.closing-copy { color: var(--text-on-dark-muted); margin: var(--space-5) 0; max-width: 60ch; }
+.stat-chips { display:flex; flex-wrap:wrap; gap: var(--space-3); margin: var(--space-6) 0; }
+.stat-chip { background: var(--ink-800); border:1px solid var(--ink-700); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); min-width: 130px; }
+.stat-chip .stat-num { font-family: var(--font-display); font-weight:700; font-size: var(--fs-h1); color: var(--accent-500); line-height:1; }
+.stat-chip .stat-label { font-size: var(--fs-xs); color: var(--text-on-dark-muted); text-transform:uppercase; letter-spacing: var(--tracking-label); margin-top: var(--space-2); }
+.stat-pass { display:inline-flex; align-items:center; gap:4px; margin-top:var(--space-2); font-size:var(--fs-xs); font-weight:700; }
+.stat-pass .icon { width:14px; height:14px; }
+.stat-pass.pass { color:#8fe3bd; }
+.stat-pass.fail { color:#f3b0b0; }
+.summary-buttons { display:flex; flex-wrap:wrap; gap: var(--space-3); margin-top: var(--space-6); }
+.complete-state { display:none; text-align:center; padding: var(--space-7) 0; }
+.complete-state.show { display:block; }
+.complete-state h3 { font-size: var(--fs-h2); color:#fff; margin-bottom: var(--space-5); }
+.complete-actions { display:flex; flex-wrap:wrap; gap: var(--space-3); justify-content:center; }
+
+/* Resume prompt */
+.resume-prompt {
+  display:none; position: relative; background: var(--surface); border: 1px solid var(--brand-100);
+  border-left: 4px solid var(--brand-600); border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5); margin: var(--space-5) auto 0; max-width: 820px;
+  box-shadow: var(--shadow-2); align-items:center; gap: var(--space-4); flex-wrap:wrap;
+}
+.resume-prompt.show { display:flex; }
+.resume-prompt p { flex:1 1 240px; color: var(--text-primary); font-weight:500; }
+.resume-actions { display:flex; gap: var(--space-3); }
+
+/* Toast */
+.toast {
+  position: fixed; left: 50%; bottom: 90px; transform: translate(-50%, 20px);
+  background: var(--ink-900); color:#fff; padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill); box-shadow: var(--shadow-3); z-index: 300;
+  font-size: var(--fs-sm); opacity:0; pointer-events:none; transition: var(--motion-control);
+  display:flex; align-items:center; gap: var(--space-2);
+}
+.toast.show { opacity:1; transform: translate(-50%, 0); }
+.toast .icon { color: var(--lime-500); width:18px; height:18px; }
+
+/* Confetti / spark */
+.confetti-layer { position: fixed; inset:0; pointer-events:none; z-index: 250; overflow:hidden; }
+.confetti {
+  position:absolute; top:-10px; width:9px; height:9px; border-radius:2px;
+  animation: confettiFall var(--dur-5) var(--ease-standard) forwards;
+}
+@keyframes confettiFall { to { transform: translateY(110vh) rotate(540deg); opacity:0; } }
+@keyframes sparkFloat { 0%{opacity:1; transform: translateY(0) scale(1);} 100%{opacity:0; transform: translateY(-60px) scale(.4);} }
+
+/* External link inline */
+.opens-new { font-style: italic; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--dur-1) !important;
+    scroll-behavior: auto !important;
+  }
+  .confetti, .ambient-route { display: none !important; }
+}
+body.reduce-motion .confetti-layer,
+body.reduce-motion .spark,
+body.reduce-motion .ambient-route { display:none !important; }
+body.reduce-motion .screen { animation: none !important; }
+body.reduce-motion .tile.speaking { animation:none !important; }
+
+@media (max-width: 520px) {
+  .screen { padding: var(--space-6) var(--space-4) var(--space-7); }
+  .hero, .transition-hero, .summary-feature { padding: var(--space-6) var(--space-5); }
+  .hero-headline, .summary-feature h2, .transition-hero h2 { font-size: var(--fs-h1); }
+  h2.screen-title { font-size: var(--fs-h2); }
+  .tiles { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- ===== SVG ICON SPRITE ===== -->
+<svg class="spritesheet" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></symbol>
+  <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5l12 7-12 7z"/></symbol>
+  <symbol id="icon-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></symbol>
+  <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="icon-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14a4 4 0 0 0 7 0"/><circle cx="9" cy="10" r="0.6" fill="currentColor"/><circle cx="15" cy="10" r="0.6" fill="currentColor"/></symbol>
+  <symbol id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4M12 8v5M9.5 10.5L12 8l2.5 2.5"/></symbol>
+  <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></symbol>
+  <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="icon-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c1 1 1.5 1.5 1.5 3h5c0-1.5.5-2 1.5-3a6 6 0 0 0-4-10z"/></symbol>
+  <symbol id="icon-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 11h6M9 15h4"/></symbol>
+  <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M18 4v5h-5M6 20v-5h5"/></symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="icon-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="icon-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="icon-phone-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7c5-3 13-3 18 0 0 1-.3 3-1.5 3.2l-3-.5c-.8-.1-1.2-.6-1.3-1.3l-.2-1.6c-2-.6-4-.6-6 0l-.2 1.6c-.1.7-.5 1.2-1.3 1.3l-3 .5C3.3 10 3 8 3 7z"/><path d="M4 20L20 4"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+</svg>
+
+<a class="skip-link" href="#course">Skip to course content</a>
+
+<div class="stage">
+  <header class="appbar">
+    <span class="wordmark">QVR<span class="dot">.</span></span>
+    <span class="appbar-title" id="appbar-title">QVR Learning · Virtual Communication</span>
+    <span class="step-counter" id="step-counter"><span aria-hidden="true" id="step-counter-glyph">01 / 11</span><span class="sr-only" id="step-counter-sr">Screen 1 of 11</span></span>
+  </header>
+
+  <div class="progress">
+    <div class="progress-track" id="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Course completion">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <nav class="stepper" id="stepper" aria-label="Course progress"></nav>
+    <span class="sr-only" id="progress-live" aria-live="polite"></span>
+  </div>
+
+  <div class="resume-prompt" id="resume-prompt" role="region" aria-label="Resume your course">
+    <p>Welcome back. Pick up where you left off?</p>
+    <div class="resume-actions">
+      <button class="btn btn-primary btn-sm" id="resume-yes" type="button">Resume</button>
+      <button class="btn btn-secondary btn-sm" id="resume-no" type="button">Start fresh</button>
+    </div>
+  </div>
+
+  <main id="course">
+    <!-- ===== SCREEN 0: WELCOME ===== -->
+    <section class="screen" id="screen-welcome" role="region" aria-labelledby="h-welcome">
+      <div class="screen-inner">
+        <div class="hero">
+          <svg class="ambient-route" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M-20 180 C 120 120, 200 200, 420 60" fill="none" stroke="rgba(199,240,0,.16)" stroke-width="2" stroke-dasharray="6 10"/>
+            <path d="M-20 60 C 140 140, 260 40, 420 140" fill="none" stroke="rgba(255,90,31,.14)" stroke-width="2" stroke-dasharray="4 12"/>
+          </svg>
+          <span class="kicker on-dark"><svg class="icon" aria-hidden="true"><use href="#icon-truck"/></svg> QVR LEARNING</span>
+          <h2 class="hero-headline" id="h-welcome" tabindex="-1">Enhancing Customer Engagement with Virtual Communication Tools</h2>
+          <p class="body-copy">Every load you book starts with a conversation. These days, more of those conversations happen on screen than across a desk. This short, hands-on course shows you how to turn a routine Microsoft Teams call into a moment that builds trust, moves the deal forward, and makes QVR the broker your customers and carriers actually want to pick up the phone for.</p>
+          <p class="body-copy">You'll get the practical stuff: how to show up prepared, how to join cleanly, and how to use the tools in Teams to keep people engaged instead of staring at a frozen screen. Then you'll put it to work — study a real-style customer call, check what you've learned, and build a plan for your very next meeting.</p>
+          <p class="body-copy"><strong>Give it about 15 minutes. Bring one upcoming meeting in mind. Let's go.</strong></p>
+          <div class="chips">
+            <span class="chip"><svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg> ~15 minutes</span>
+            <span class="chip"><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg> 5 short modules</span>
+            <span class="chip"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> Scored knowledge check + a plan you can keep</span>
+          </div>
+        </div>
+        <p class="small-print" style="font-style:normal;">Works best with sound on. No login required.</p>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 1: OBJECTIVES ===== -->
+    <section class="screen" id="screen-objectives" role="region" aria-labelledby="h-objectives" hidden>
+      <div class="screen-inner">
+        <span class="kicker">What you'll walk away with</span>
+        <h2 class="screen-title" id="h-objectives" tabindex="-1">Your goals for the next 15 minutes</h2>
+        <p class="lead">By the end of this course, you'll be able to:</p>
+        <ol class="obj-list">
+          <li><strong>Identify</strong> at least three Microsoft Teams features (chat, live reactions, screen share, and meeting controls) that increase customer and carrier engagement during a virtual meeting.</li>
+          <li><strong>Join</strong> a Microsoft Teams meeting correctly from a calendar invite, after confirming your audio, video, and connection are ready.</li>
+          <li><strong>Apply</strong> at least two engagement techniques — such as a strong opening, screen sharing, or chat — in a simulated customer or carrier call.</li>
+          <li><strong>Evaluate</strong> a peer's recorded-style Teams call and pinpoint the specific tools and trust-building moves that moved the conversation forward.</li>
+          <li><strong>Create</strong> a personalized plan for your next real meeting, including your audience, goal, two tools you'll use, and the action you'll ask for.</li>
+        </ol>
+        <h3 class="section-label">Here's the route</h3>
+        <ol class="roadmap">
+          <li class="roadmap-card"><span class="roadmap-num">1</span><div><div class="rc-title">Learning Objectives &amp; Roadmap</div><div class="rc-desc">Your goals and the route ahead</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">2</span><div><div class="rc-title">Microsoft Teams Overview</div><div class="rc-desc">The tools, explained — no video needed</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">3</span><div><div class="rc-title">Joining a Teams Meeting</div><div class="rc-desc">A clean, confident join, step by step</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">4</span><div><div class="rc-title">Tips for a Great Meeting</div><div class="rc-desc">Make the call work for you</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">5</span><div><div class="rc-title">Knowledge Check</div><div class="rc-desc">4 quick questions, scored</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">6</span><div><div class="rc-title">Study a Real-Style QVR Call</div><div class="rc-desc">Watch the tools and trust moves in action</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">7</span><div><div class="rc-title">Reflection</div><div class="rc-desc">Capture what you saw</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">8</span><div><div class="rc-title">Plan Your Next Meeting</div><div class="rc-desc">Build a plan you can keep</div></div></li>
+          <li class="roadmap-card"><span class="roadmap-num">9</span><div><div class="rc-title">Wrap Up</div><div class="rc-desc">What you did + next steps</div></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 2: OVERVIEW ===== -->
+    <section class="screen" id="screen-overview" role="region" aria-labelledby="h-overview" hidden>
+      <div class="screen-inner wide">
+        <span class="kicker">Overview of Microsoft Teams</span>
+        <h2 class="screen-title" id="h-overview" tabindex="-1">The handful of tools that do the heavy lifting</h2>
+        <p class="lead">You don't need to master all of Teams. You need four things that make customer and carrier calls run smoothly. Here's each one in plain English — what it does, why it matters for booking freight, and where to dig deeper if you want to. Read it here; the links are a bonus, not a requirement.</p>
+        <div class="card-grid">
+          <article class="card explainer-card">
+            <div class="ec-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-video"/></svg></span>
+              <div><span class="eyebrow">Start here</span><h3>What a Teams meeting actually is</h3></div>
+            </div>
+            <p class="ec-body">A Teams meeting is a scheduled (or instant) video call with chat, screen sharing, and reactions built in. You can join from your desktop app, your browser, or your phone — your customer or carrier doesn't need a Teams account to join as a guest, which matters when you're meeting a small carrier or a shipper who lives in email. Audio, camera, and a shared screen are the three things that turn a phone call into a meeting people remember.</p>
+            <p class="why-line"><strong>Why a QVR rep cares:</strong> Knowing a customer can join with one click and no account removes the #1 excuse for 'let's just do a phone call.'</p>
+            <a class="ext-link" href="https://support.microsoft.com/en-us/office/meetings-in-teams-e0b0ae21-53ee-4462-a50d-ca9b9e217b67" target="_blank" rel="noopener noreferrer">Learn more: Meetings in Microsoft Teams <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a>
+          </article>
+          <article class="card explainer-card">
+            <div class="ec-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-chat"/></svg></span>
+              <div><span class="eyebrow">Engagement</span><h3>Chat and live reactions</h3></div>
+            </div>
+            <p class="ec-body">The meeting chat is a side channel that runs while you talk — perfect for dropping a rate, a load number, a link, or a quick 'got it.' Live reactions (the thumbs-up, heart, applause, and raised hand) let people respond without interrupting. Use chat to make information sticky (people can scroll back to your numbers) and reactions to read the room when cameras are off.</p>
+            <p class="why-line"><strong>Why a QVR rep cares:</strong> A confirmation number in chat means the customer never says 'wait, what was that load again?' A raised hand means a carrier has a question before you lose the deal to silence.</p>
+            <a class="ext-link" href="https://support.microsoft.com/en-us/teams/meetings/chat-in-microsoft-teams-meetings" target="_blank" rel="noopener noreferrer">Learn more: Chat in Microsoft Teams meetings <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a>
+          </article>
+          <article class="card explainer-card">
+            <div class="ec-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-share"/></svg></span>
+              <div><span class="eyebrow">Show, don't tell</span><h3>Sharing your screen the right way</h3></div>
+            </div>
+            <p class="ec-body">'Share content' lets you put your screen in front of everyone — a rate sheet, a tracking map, a load board, a one-page proposal. Best practice: share a single window or file, not your whole desktop, so notifications and unrelated tabs stay private. Close anything you don't want a customer to see <em>before</em> you click Share. You can also hand control to someone or annotate right on screen.</p>
+            <p class="why-line"><strong>Why a QVR rep cares:</strong> A customer who <em>sees</em> the lane on a map and the rate in writing trusts the number more than one read aloud. And sharing one clean window keeps your other customers' info confidential.</p>
+            <a class="ext-link" href="https://support.microsoft.com/en-us/office/share-content-in-a-meeting-in-teams-fcc2bf59-aecd-4481-8f99-ce55dd836ce8" target="_blank" rel="noopener noreferrer">Learn more: Share content in a meeting in Teams <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a>
+          </article>
+          <article class="card explainer-card">
+            <div class="ec-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-mic"/></svg></span>
+              <div><span class="eyebrow">Stay in control</span><h3>Mic, camera, and the controls that matter</h3></div>
+            </div>
+            <p class="ec-body">The control bar is your dashboard: mute/unmute, camera on/off, raise hand, reactions, chat, share, and leave. Mute when you're not talking so background noise (the office, the road) doesn't bleed in. Camera on for the parts that build relationship; camera off is fine when you're sharing a screen and want focus on the content. Knowing where these live means you never fumble in front of a customer.</p>
+            <p class="why-line"><strong>Why a QVR rep cares:</strong> Confidence is partly muscle memory. Reps who know their controls look in command — and customers read 'in command' as 'reliable.'</p>
+            <a class="ext-link" href="https://support.microsoft.com/en-us/teams/meetings/use-meeting-controls-in-microsoft-teams" target="_blank" rel="noopener noreferrer">Learn more: Use meeting controls in Microsoft Teams <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a>
+          </article>
+        </div>
+        <p class="small-print" style="font-style:normal;">Want the full library? <a class="ext-link" style="display:inline-flex;" href="https://support.microsoft.com/en-us/teams" target="_blank" rel="noopener noreferrer">Microsoft Teams help &amp; learning <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a></p>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 3: JOINING ===== -->
+    <section class="screen" id="screen-joining" role="region" aria-labelledby="h-joining" hidden>
+      <div class="screen-inner">
+        <span class="kicker">Joining a Teams Meeting</span>
+        <h2 class="screen-title" id="h-joining" tabindex="-1">Join clean, every time</h2>
+        <p class="lead">Now that you've met the tools, here's how to get into a meeting without the awkward "can you hear me?" scramble. Follow these six steps and you'll show up ready — which is exactly the impression you want a customer to have before you've said a word.</p>
+        <div class="callout">
+          <h3><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"/></svg> Two minutes before, run the QVR pre-flight:</h3>
+          <ul class="preflight-list">
+            <li><button class="preflight-check" type="button" role="checkbox" aria-checked="false"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></button><span>Internet connection is stable (close the VPN-heavy downloads).</span></li>
+            <li><button class="preflight-check" type="button" role="checkbox" aria-checked="false"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></button><span>Microphone tested — you can hear yourself in the device settings.</span></li>
+            <li><button class="preflight-check" type="button" role="checkbox" aria-checked="false"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></button><span>Camera framed — face centered, light in front of you, not behind.</span></li>
+            <li><button class="preflight-check" type="button" role="checkbox" aria-checked="false"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></button><span>Notifications off — close personal chats and other customers' files.</span></li>
+            <li><button class="preflight-check" type="button" role="checkbox" aria-checked="false"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></button><span>Your one screen ready to share (rate sheet, map, or proposal) is open in a single window.</span></li>
+          </ul>
+        </div>
+        <div class="substepper" id="joining-substepper">
+          <div class="subdots" id="joining-subdots" aria-label="Joining steps"></div>
+          <div class="substep-panel with-mock" id="joining-panel" role="group" aria-label="Step 1 of 6"></div>
+          <div class="substep-nav">
+            <button class="btn btn-secondary btn-sm" id="joining-prev" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"/></svg> Previous step</button>
+            <button class="btn btn-secondary btn-sm" id="joining-next" type="button">Next step <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+          </div>
+        </div>
+        <details style="margin-top:var(--space-5);">
+          <summary style="cursor:pointer; color:var(--brand-700); font-weight:600;">All six steps as a list</summary>
+          <ol class="fallback-list" id="joining-fallback"></ol>
+        </details>
+        <p class="small-print" style="font-style:normal;"><a class="ext-link" style="display:inline-flex;" href="https://support.microsoft.com/en-us/office/i-can-t-join-a-meeting-in-microsoft-teams-85f8eb98-b815-4007-90c9-0c56b87e288d" target="_blank" rel="noopener noreferrer">Can't get in? I can't join a meeting in Microsoft Teams <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a></p>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 4: TIPS ===== -->
+    <section class="screen" id="screen-tips" role="region" aria-labelledby="h-tips" hidden>
+      <div class="screen-inner wide">
+        <span class="kicker">Tips for a Teams Meeting</span>
+        <h2 class="screen-title" id="h-tips" tabindex="-1">Now make the call work for you</h2>
+        <p class="lead">Joining is table stakes. Running a meeting that actually moves freight — that's the skill. These six habits separate a forgettable call from one that ends with "yes, send the rate con." None of them take extra time. They just take intent.</p>
+        <div class="tip-grid">
+          <article class="card tip-card"><div class="tip-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg></span><h3>Open with a purpose, not a "so…"</h3></div><p class="tip-do"><strong>Do this:</strong> Start with one sentence that names the goal. "Thanks for hopping on — my goal today is to get you covered on the Dallas–Atlanta lane at a rate that works." </p><p class="tip-reason"><strong>Reason:</strong> People relax when they know where the call is going. Vague openings make customers wonder if you're prepared.</p></article>
+          <article class="card tip-card"><div class="tip-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-share"/></svg></span><h3>Share one clean screen.</h3></div><p class="tip-do"><strong>Do this:</strong> Show the rate, the map, or the one-pager — a single window, notifications off.</p><p class="tip-reason"><strong>Reason:</strong> Seeing the number makes it real and makes you look organized. A messy desktop does the opposite.</p></article>
+          <article class="card tip-card"><div class="tip-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-chat"/></svg></span><h3>Use chat for anything they'll need later.</h3></div><p class="tip-do"><strong>Do this:</strong> Drop load numbers, rates, links, and next steps into the meeting chat as you talk.</p><p class="tip-reason"><strong>Reason:</strong> Customers scroll back to chat. Spoken numbers evaporate; written ones close deals.</p></article>
+          <article class="card tip-card"><div class="tip-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-smile"/></svg></span><h3>Read the room with reactions and questions.</h3></div><p class="tip-do"><strong>Do this:</strong> Watch for raised hands and reactions; pause and ask "What's your read on that rate?"</p><p class="tip-reason"><strong>Reason:</strong> Silence isn't agreement. Inviting input surfaces the objection while you can still handle it.</p></article>
+          <article class="card tip-card"><div class="tip-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-mic"/></svg></span><h3>Mute when you're not talking.</h3></div><p class="tip-do"><strong>Do this:</strong> Stay muted unless you're speaking, especially from a busy office or the road.</p><p class="tip-reason"><strong>Reason:</strong> Clean audio signals professionalism. Background chaos signals "this rep is distracted."</p></article>
+          <article class="card tip-card"><div class="tip-head"><span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></span><h3>Close with a clear next action.</h3></div><p class="tip-do"><strong>Do this:</strong> End by naming exactly what happens next and who owns it. "I'll send the rate con in five minutes — can you sign and return it today?"</p><p class="tip-reason"><strong>Reason:</strong> A meeting without a next step is just a chat. The ask is what turns the conversation into a booked load.</p></article>
+        </div>
+        <p class="small-print">Camera on for the relationship moments; camera off is fine while you present so focus stays on the screen.</p>
+        <div class="deeper-links">
+          <a class="ext-link" href="https://support.microsoft.com/en-us/teams/meetings/present-content-in-microsoft-teams-meetings" target="_blank" rel="noopener noreferrer">Present content in Microsoft Teams meetings <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a>
+          <a class="ext-link" href="https://support.microsoft.com/en-us/teams/meetings/express-yourself-in-microsoft-teams-meetings-with-live-reactions" target="_blank" rel="noopener noreferrer">Express yourself with live reactions <svg class="icon" aria-hidden="true"><use href="#icon-link"/></svg><span class="sr-only opens-new"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 5: KNOWLEDGE CHECK ===== -->
+    <section class="screen" id="screen-knowledge-check" role="region" aria-labelledby="h-kc" hidden>
+      <div class="screen-inner">
+        <span class="kicker">Knowledge Check</span>
+        <h2 class="screen-title" id="h-kc" tabindex="-1">Four quick questions</h2>
+        <p class="lead">No trick questions — just the stuff that matters on a real call. Pick an answer, then submit to see instant feedback and your score. Aim for 4 out of 4, but you'll learn something either way.</p>
+
+        <div class="results-band" id="results-band" tabindex="-1">
+          <div class="score-ring" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <defs>
+                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FF5A1F"/>
+                  <stop offset="100%" stop-color="#C7F000"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="60" cy="60" r="52" fill="none" stroke-width="12"/>
+              <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="12" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            </svg>
+            <div class="score-ring-label"><span class="score-ring-num" id="ring-num">0</span><span class="score-ring-den">of 4</span></div>
+          </div>
+          <div class="results-text">
+            <div class="score-line" id="score-line">You scored 0 out of 4 (0%).</div>
+            <div class="pass-state fail" id="pass-state"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg> <span id="pass-text">Not yet</span></div>
+            <div class="mini-summary" id="mini-summary"></div>
+            <p class="tier-msg" id="tier-msg"></p>
+            <div class="results-actions">
+              <button class="btn btn-secondary btn-sm" id="kc-review" type="button">Review my answers</button>
+              <button class="btn btn-secondary btn-sm" id="kc-retake" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-refresh"/></svg> Retake the check</button>
+            </div>
+          </div>
+        </div>
+
+        <form class="quiz-form" id="quiz-form"></form>
+        <p class="kc-helper" id="kc-helper" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 6: PRACTICE TRANSITION ===== -->
+    <section class="screen" id="screen-practice-transition" role="region" aria-labelledby="h-transition" hidden>
+      <div class="screen-inner">
+        <div class="transition-hero" id="transition-hero">
+          <span class="kicker on-dark"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"/></svg> Now It's Time to Practice</span>
+          <h2 id="h-transition" tabindex="-1">Great job — keep going!</h2>
+          <p class="body-copy">You've got the tools and you've proven the fundamentals. Now watch them in the wild. Below is a real-style QVR call. Read it like a coach: notice the tools, notice the trust moves, and you'll make two quick calls of your own along the way.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 7: SCENARIO ===== -->
+    <section class="screen" id="screen-scenario" role="region" aria-labelledby="h-scenario" hidden>
+      <div class="screen-inner wide">
+        <span class="kicker">Study a Real-Style QVR Call</span>
+        <h2 class="screen-title" id="h-scenario" tabindex="-1">Study this call: Jordan (QVR) covers a hot lane</h2>
+
+        <div class="setup-card">
+          <h3>Study this call: Jordan (QVR) covers a hot lane</h3>
+          <div class="setup-row"><span class="setup-label">The setup</span><span class="setup-text">Jordan, a QVR broker, is on a Teams meeting with <strong>Mariela</strong>, a logistics coordinator at a regional shipper (the customer), to cover an urgent Dallas → Atlanta reefer load. A carrier, <strong>Dispatch (Sunbelt Carriers)</strong>, joins for the last few minutes. Watch how Jordan uses Teams to build trust and close.</span></div>
+          <div class="setup-row"><span class="setup-label">Your job</span><span class="setup-text">Advance through the call. Read the annotations. When you hit a <strong>Your call</strong> decision point, pick what you'd do, then see what Jordan did and why.</span></div>
+        </div>
+
+        <!-- Faux Teams UI -->
+        <div class="teams-ui">
+          <div class="teams-stage">
+            <div class="tiles">
+              <div class="tile is-live" id="tile-jordan">
+                <span class="tile-cam" id="cam-jordan"><svg class="icon" aria-hidden="true"><use href="#icon-video"/></svg></span>
+                <span class="tile-avatar">J</span>
+                <span class="tile-name">Jordan — QVR (host)</span>
+                <span class="tile-role">Broker</span>
+              </div>
+              <div class="tile is-live" id="tile-mariela">
+                <span class="tile-cam" id="cam-mariela"><svg class="icon" aria-hidden="true"><use href="#icon-video"/></svg></span>
+                <span class="tile-avatar">M</span>
+                <span class="tile-name">Mariela — Coordinator (customer)</span>
+                <span class="tile-role">Shipper</span>
+                <span class="tile-reaction" id="mariela-reaction" hidden aria-hidden="true">👍</span>
+              </div>
+              <div class="tile joined-later" id="tile-dispatch">
+                <span class="tile-avatar" style="background:var(--accent-700)">S</span>
+                <span class="tile-name">Dispatch — Sunbelt Carriers</span>
+                <span class="tile-role" id="dispatch-status">(joins later)</span>
+              </div>
+              <div class="tile-share" id="share-surface">
+                <div class="share-head"><svg class="icon" aria-hidden="true"><use href="#icon-share"/></svg> Jordan is sharing a window</div>
+                <div class="share-map"><span class="share-route"><svg class="icon" aria-hidden="true"><use href="#icon-truck"/></svg> Dallas → Atlanta · reefer 34°F</span></div>
+                <div class="share-rate">Rate: $2,450 all-in</div>
+              </div>
+            </div>
+            <div class="chat-panel">
+              <div class="chat-head"><svg class="icon" aria-hidden="true"><use href="#icon-chat"/></svg> Meeting chat</div>
+              <div class="chat-body" id="chat-body"><span class="chat-empty">Messages Jordan drops will appear here.</span></div>
+            </div>
+          </div>
+          <div class="control-bar" aria-hidden="true">
+            <div class="ctrl-group"><span class="ctrl" id="ctrl-mute"><svg class="icon" aria-hidden="true"><use href="#icon-mic"/></svg></span><span class="ctrl-label">Mute</span></div>
+            <div class="ctrl-group"><span class="ctrl active" id="ctrl-cam"><svg class="icon" aria-hidden="true"><use href="#icon-video"/></svg></span><span class="ctrl-label">Camera</span></div>
+            <div class="ctrl-group"><span class="ctrl" id="ctrl-react"><svg class="icon" aria-hidden="true"><use href="#icon-smile"/></svg></span><span class="ctrl-label">Reactions</span></div>
+            <div class="ctrl-group"><span class="ctrl" id="ctrl-share"><svg class="icon" aria-hidden="true"><use href="#icon-share"/></svg></span><span class="ctrl-label">Share</span></div>
+            <div class="ctrl-group"><span class="ctrl" id="ctrl-chat"><svg class="icon" aria-hidden="true"><use href="#icon-chat"/></svg></span><span class="ctrl-label">Chat</span></div>
+            <div class="ctrl-group"><span class="ctrl leave"><svg class="icon" aria-hidden="true"><use href="#icon-phone-off"/></svg></span><span class="ctrl-label">Leave</span></div>
+          </div>
+        </div>
+
+        <!-- Sub-stepper dots -->
+        <div class="substepper">
+          <div class="subdots" id="scenario-subdots" aria-label="Call progress"></div>
+        </div>
+
+        <!-- Transcript (progressively revealed) -->
+        <div class="transcript" id="scenario-transcript"></div>
+
+        <div class="substep-nav">
+          <button class="btn btn-secondary btn-sm" id="scenario-prev" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"/></svg> Back a step</button>
+          <button class="btn btn-primary btn-sm" id="scenario-next" type="button">Advance the call <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+        </div>
+        <p class="kc-helper" id="scenario-progress" aria-live="polite" style="margin-top:var(--space-3);"></p>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 8: REFLECTION ===== -->
+    <section class="screen" id="screen-reflection" role="region" aria-labelledby="h-reflection" hidden>
+      <div class="screen-inner">
+        <span class="kicker">Reflection</span>
+        <h2 class="screen-title" id="h-reflection" tabindex="-1">Now make it yours</h2>
+        <p class="lead">Take a minute to capture what you saw. Your notes save on this device so you can pull them into your plan in the next module.</p>
+        <div class="reflect-grid">
+          <div>
+            <label class="field-label" for="r1">What virtual tools did the QVR rep use during the call?</label>
+            <p class="field-hint">Hint: Think about camera, screen share, chat, and reactions — and when Jordan used each.</p>
+            <textarea id="r1" data-reflect="r1" aria-describedby="r1-saved" rows="2"></textarea>
+            <span class="field-saved" id="r1-saved"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> Saved automatically on this device.</span>
+          </div>
+          <div>
+            <label class="field-label" for="r2">What strategies helped build trust or move the conversation forward?</label>
+            <p class="field-hint">Hint: Consider his opening, putting the rate in writing, reading the room, and bringing in the carrier.</p>
+            <textarea id="r2" data-reflect="r2" aria-describedby="r2-saved" rows="2"></textarea>
+            <span class="field-saved" id="r2-saved"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> Saved automatically on this device.</span>
+          </div>
+          <div>
+            <label class="field-label" for="r3">What would you have done differently in this call?</label>
+            <p class="field-hint">Hint: Be honest — a different opening, a different way to handle the silence, a tighter close?</p>
+            <textarea id="r3" data-reflect="r3" aria-describedby="r3-saved" rows="2"></textarea>
+            <span class="field-saved" id="r3-saved"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> Saved automatically on this device.</span>
+          </div>
+          <div>
+            <label class="field-label" for="r4">How can you apply what you observed to your own customer or carrier interactions?</label>
+            <p class="field-hint">Hint: Name one specific habit you'll steal for your very next meeting.</p>
+            <textarea id="r4" data-reflect="r4" aria-describedby="r4-saved" rows="2"></textarea>
+            <span class="field-saved" id="r4-saved"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> Saved automatically on this device.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 9: PLANNER ===== -->
+    <section class="screen" id="screen-planner" role="region" aria-labelledby="h-planner" hidden>
+      <div class="screen-inner wide">
+        <span class="kicker">Plan Your Next Meeting</span>
+        <h2 class="screen-title" id="h-planner" tabindex="-1">Build the plan. Run the meeting.</h2>
+        <p class="lead">Don't let this fade by Friday. Take one real meeting you've got coming up and build a quick plan for it right now. Fill in the six fields, then download a clean copy to keep. Six minutes here saves you a shaky call later.</p>
+        <div class="planner-layout">
+          <div class="planner-fields">
+            <fieldset class="q-fieldset">
+              <legend class="field-label">Who is your audience? <span style="font-weight:400;color:var(--text-tertiary);font-size:var(--fs-sm);">(Client or Carrier)</span></legend>
+              <p class="field-hint">Hint: Name the person and whether they're a shipper/customer or a carrier. The more specific, the better you'll prepare.</p>
+              <div class="segmented" role="group" aria-label="Audience type">
+                <button type="button" id="aud-client" data-aud="Client" aria-pressed="false">Client</button>
+                <button type="button" id="aud-carrier" data-aud="Carrier" aria-pressed="false">Carrier</button>
+              </div>
+              <label class="sr-only" for="aud-name">Named person</label>
+              <input type="text" id="aud-name" data-plan="audienceName" placeholder="e.g., Mariela — coordinator at Lone Star Produce (customer)" style="margin-top:var(--space-3);">
+            </fieldset>
+            <div>
+              <label class="field-label" for="p-goal">What is the meeting goal?</label>
+              <p class="field-hint">Hint: One sentence. 'Book a load,' 'close the sale,' 'win the lane' — make it concrete and measurable.</p>
+              <input type="text" id="p-goal" data-plan="goal" placeholder="e.g., Book the Dallas–Atlanta reefer at a rate that works">
+            </div>
+            <fieldset class="q-fieldset">
+              <legend class="field-label">Which 2 virtual tools will you use?</legend>
+              <p class="field-hint">Hint: Pick exactly two from screen share, chat, reactions, or camera — and note what you'll use each one for.</p>
+              <div class="tool-chips" id="tool-chips" role="group" aria-label="Virtual tools (choose up to two)">
+                <button type="button" class="tool-chip" data-tool="Screen share" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#icon-share"/></svg> Screen share</button>
+                <button type="button" class="tool-chip" data-tool="Chat" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#icon-chat"/></svg> Chat</button>
+                <button type="button" class="tool-chip" data-tool="Reactions" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#icon-smile"/></svg> Reactions</button>
+                <button type="button" class="tool-chip" data-tool="Camera" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#icon-video"/></svg> Camera</button>
+              </div>
+              <p class="chip-count" id="chip-count" aria-live="polite">0 of 2 selected</p>
+            </fieldset>
+            <div>
+              <label class="field-label" for="p-open">How will you open the meeting to engage the customer?</label>
+              <p class="field-hint">Hint: Write your actual first sentence. A purpose-driven opener sets the tone in five seconds.</p>
+              <textarea id="p-open" data-plan="open" rows="2" placeholder="Thanks for hopping on — my goal today is to get you covered on the Dallas lane at a rate that works."></textarea>
+            </div>
+            <div>
+              <label class="field-label" for="p-info">What key information will you present?</label>
+              <p class="field-hint">Hint: List the 2–3 facts that close the deal — and remember to put the important ones in chat.</p>
+              <textarea id="p-info" data-plan="info" rows="2" placeholder="e.g., Rate, transit time, equipment (reefer @ 34°F), and proof you can hit the delivery window"></textarea>
+            </div>
+            <div>
+              <label class="field-label" for="p-cta">What action will you ask the customer or carrier to take next?</label>
+              <p class="field-hint">Hint: Name the ask, the owner, and the deadline. A meeting without a next step is just a chat.</p>
+              <textarea id="p-cta" data-plan="cta" rows="2" placeholder="Sign and return the rate con today so we can lock the truck."></textarea>
+            </div>
+          </div>
+          <aside class="summary-panel" id="summary-panel" aria-label="Your meeting plan preview">
+            <h3><svg class="icon" aria-hidden="true"><use href="#icon-clipboard"/></svg> Your meeting plan</h3>
+            <div id="summary-content"><p class="summary-empty">Fill in a field and watch your plan build here.</p></div>
+            <div class="download-row">
+              <button class="btn btn-dark btn-sm" id="dl-txt" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg> Download my plan</button>
+              <button class="btn btn-secondary btn-sm" id="dl-html" type="button">Download as page (.html)</button>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="plan-save" type="button" style="margin-top:var(--space-3);color:var(--lime-500);">Save to this device</button>
+            <p class="download-help">You can download your responses for future reference. It opens a clean, printable summary — save it as a PDF or print it.</p>
+            <p class="download-err" id="download-err"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg> <span id="download-err-text"></span></p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN 10: SUMMARY ===== -->
+    <section class="screen" id="screen-summary" role="region" aria-labelledby="h-summary" hidden>
+      <div class="screen-inner">
+        <div class="summary-feature" id="summary-feature">
+          <svg class="ambient-route" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M-20 160 C 120 100, 260 200, 420 40" fill="none" stroke="rgba(199,240,0,.16)" stroke-width="2" stroke-dasharray="6 10"/>
+          </svg>
+          <div id="summary-main">
+            <span class="kicker on-dark"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"/></svg> Wrap Up</span>
+            <h2 id="h-summary" tabindex="-1">You did it.</h2>
+            <p class="closing-copy" style="margin-top:0;">In the last 15 minutes, you:</p>
+            <ul class="recap-list">
+              <li><span class="recap-check"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></span> Learned the Microsoft Teams tools that drive engagement — chat, reactions, screen share, and meeting controls.</li>
+              <li><span class="recap-check"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></span> Completed a scored knowledge check.</li>
+              <li><span class="recap-check"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></span> Studied and made decisions in a real-style QVR meeting.</li>
+              <li><span class="recap-check"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></span> Reflected on a peer's call and what made it work.</li>
+              <li><span class="recap-check"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></span> Built a personalized plan for your very next meeting.</li>
+            </ul>
+            <p class="closing-copy">Virtual presence isn't about being flashy — it's about being ready, clear, and genuinely useful to the person on the other side of the screen. Do that consistently and you won't just run better meetings. You'll be the broker customers and carriers want to work with. Thanks for investing in your growth and in QVR's mission.</p>
+            <div class="stat-chips">
+              <div class="stat-chip"><div class="stat-num">4</div><div class="stat-label">Tools mastered</div></div>
+              <div class="stat-chip"><div class="stat-num" id="stat-score">0/4</div><div class="stat-label">Knowledge check</div><div class="stat-pass" id="stat-pass" hidden></div></div>
+              <div class="stat-chip"><div class="stat-num" style="font-size:var(--fs-h3);">Ready <span aria-hidden="true">✅</span></div><div class="stat-label">Meeting plan</div></div>
+            </div>
+            <div class="summary-buttons">
+              <button class="btn btn-primary" id="finish-exit" type="button">Finish &amp; exit <svg class="icon" aria-hidden="true"><use href="#icon-truck"/></svg></button>
+              <button class="btn btn-dark" id="summary-dl" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg> Download my plan again</button>
+              <button class="btn btn-secondary" id="summary-restart" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-refresh"/></svg> Start over</button>
+            </div>
+          </div>
+          <div class="complete-state" id="complete-state">
+            <h3>Course complete. Now go book something. <span aria-hidden="true">🚚</span></h3>
+            <div class="complete-actions">
+              <button class="btn btn-dark" id="review-start" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-refresh"/></svg> Review from start</button>
+              <button class="btn btn-secondary" id="complete-dl" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg> Download my plan again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="navbar">
+    <button class="btn btn-ghost" id="nav-back" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"/></svg> Back</button>
+    <div class="nav-right">
+      <span class="nav-hint" id="nav-hint" aria-live="polite"></span>
+      <button class="btn btn-primary" id="nav-next" type="button">Continue <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+    </div>
+  </footer>
+
+  <footer class="credit">A QVR Learning experience · Designed by Shyanne Dumont</footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
+<span class="sr-only" id="announcer" aria-live="polite"></span>
+<span class="sr-only" id="rm-notice">Animations are minimized based on your system settings.</span>
+
+<script>
+(function(){
+'use strict';
+
+/* ===================== DATA ===================== */
+const SCREENS = [
+  { id:'welcome',              title:'Welcome',                         progressCounts:false, gate:null },
+  { id:'objectives',           title:'Learning Objectives & Roadmap',   progressCounts:true,  gate:null },
+  { id:'overview',             title:'Overview of Microsoft Teams',     progressCounts:true,  gate:null },
+  { id:'joining',              title:'Joining a Teams Meeting',         progressCounts:true,  gate:null },
+  { id:'tips',                 title:'Tips for a Teams Meeting',        progressCounts:true,  gate:null },
+  { id:'knowledge-check',      title:'Knowledge Check',                 progressCounts:true,  gate:null },
+  { id:'practice-transition',  title:"Now It's Time to Practice",       progressCounts:false, gate:(s)=>s.quiz.everSubmitted===true },
+  { id:'scenario',             title:'Study a Real-Style QVR Call',     progressCounts:true,  gate:null },
+  { id:'reflection',           title:'Reflection',                      progressCounts:true,  gate:null },
+  { id:'planner',              title:'Plan Your Next Meeting',          progressCounts:true,  gate:null },
+  { id:'summary',              title:'Wrap Up',                         progressCounts:true,  gate:null },
+];
+const PROGRESS_TOTAL = SCREENS.filter(s=>s.progressCounts).length; // 9
+const SECTION_MIN = { objectives:1, overview:3, joining:3, tips:2, 'knowledge-check':2, scenario:3, reflection:2, planner:4, summary:1 };
+
+const QUIZ = [
+  { id:'q1', question:"What is one way to ensure you're prepared before joining a Teams meeting?",
+    options:["Wait until the meeting starts to test your audio","Skip reading the agenda","Check your internet connection and test your microphone ahead of time","Join 10 minutes late to avoid small talk"],
+    correctIndex:2,
+    feedback:["Incorrect. Testing audio after you've joined means the customer watches you troubleshoot. Run your checks before the meeting so the join is invisible.","Incorrect. The agenda is your map. Skipping it is how calls wander and lose the deal. Always know your goal before you join.","Correct. Exactly. A two-minute pre-flight — connection, mic, camera — means you show up ready instead of scrambling.","Incorrect. Showing up late costs you the relationship-building window and signals you don't value the customer's time. On time is a kept promise."],
+    rationale:"Preparation is the cheapest way to look reliable. Confirming your connection and mic ahead of time prevents the awkward “can you hear me?” moment and lets the customer's first impression be your confidence, not your tech trouble." },
+  { id:'q2', question:"Which of the following is a feature you can use during a Teams meeting to engage others?",
+    options:["Minimize the meeting window","Use the chat and reaction emojis","Close your camera","Leave the meeting early"],
+    correctIndex:1,
+    feedback:["Incorrect. Minimizing the window hides the meeting from you — it doesn't engage anyone. Engagement tools are the ones that invite a response.","Correct. Yes. Chat keeps key info on screen for later, and reactions let people respond without interrupting. Both pull customers in instead of letting them drift.","Incorrect. Turning off your camera can reduce connection during relationship moments. (It's fine while presenting — but it's not an engagement tool.)","Incorrect. Leaving early ends engagement entirely. The goal is to keep the customer involved, not to exit."],
+    rationale:"Engagement is active. Chat makes your numbers sticky and gives quieter customers a low-pressure way to respond; reactions and raised hands let you read the room even when cameras are off. Use them on purpose." },
+  { id:'q3', question:"Where do you click to join a Teams meeting from your calendar?",
+    options:["On the Teams logo","On the meeting link within the invite","On your profile picture","On the mute button"],
+    correctIndex:1,
+    feedback:["Incorrect. The Teams logo just opens the app — it won't drop you into a specific meeting. You need the link tied to this invite.","Correct. That's the one. The Join link inside the calendar invite takes you straight into the right meeting, fast.","Incorrect. Your profile picture opens your account settings, not the meeting. Look inside the invite instead.","Incorrect. The mute button controls your audio once you're already in. It can't get you into the meeting."],
+    rationale:"The invite is the front door. Clicking the meeting link inside it is the most reliable way in — and knowing this cold means you can also talk a stuck customer through it without missing a beat." },
+  { id:'q4', question:"When sharing your screen in Teams, what's a good practice?",
+    options:["Share your whole desktop to save time","Close unrelated tabs or documents before sharing","Let the meeting organizer share for you","Don't use screen share—it's too risky"],
+    correctIndex:1,
+    feedback:["Incorrect. Sharing your whole desktop exposes notifications and other customers' files. It's faster to set up and far riskier — not worth it.","Correct. Right. Close anything unrelated and share a single window or file. It keeps other customers' info private and keeps the focus on what matters.","Incorrect. You can present your own content — waiting on the organizer slows the call and makes you look less in command. Share what you own.","Incorrect. Screen share isn't risky when you do it right; it's one of your best trust-builders. Avoiding it means leaving a powerful tool on the table."],
+    rationale:"Screen sharing is how you make a rate or a lane real. Done well — one clean window, notifications off — it builds trust and protects confidentiality at the same time. Done sloppily, it leaks information. The practice is what makes it safe." }
+];
+const PASS_THRESHOLD = 3;
+
+const JOINING_STEPS = [
+  { n:1, title:'Open the invite.', action:'Find the meeting on your Outlook or Teams calendar and open it.', why:'The invite is your front door. Everything you need to join lives inside it.', mock:'invite' },
+  { n:2, title:'Click "Join" on the meeting link.', action:'Select the <strong>Join Microsoft Teams Meeting</strong> link (or the <strong>Join</strong> button) inside the calendar event — not the Teams logo, not your profile, not a random app icon.', why:'This is the one click that actually gets you in. Clicking the link from the invite is the fastest, most reliable path.', mock:'join' },
+  { n:3, title:'Choose how to join.', action:'Pick the <strong>desktop app</strong> (most reliable) or <strong>continue in this browser</strong> if you\'re on a different machine. Customers and carriers can join the same way as a guest — no account needed.', why:'Knowing both paths means you can help a customer who\'s stuck, which makes you the calm one in the room.', mock:'choose' },
+  { n:4, title:'Set your audio and video before you enter.', action:'On the pre-join screen, turn your <strong>camera on</strong>, confirm the right <strong>microphone and speaker</strong> are selected, and unmute. Use the test/preview to check yourself.', why:'Fixing audio here is invisible. Fixing it after you join is the first thing the customer remembers.', mock:'av' },
+  { n:5, title:'Click "Join now."', action:'Select <strong>Join now</strong> to enter the meeting.', why:'You\'re in — on time, on camera, and ready. That punctuality is a small promise kept, and freight runs on kept promises.', mock:'joinnow' },
+  { n:6, title:'Open your essentials.', action:'Bring up <strong>chat</strong> and have your <strong>share</strong> ready so you can drop a number or show your screen the moment it\'s useful.', why:'Tools open = no fumbling mid-call. You spend your attention on the customer, not the buttons.', mock:'essentials' }
+];
+
+// Scenario steps: types 'turn' and 'decision'
+const SCENARIO_STEPS = [
+  { type:'turn', stage:'[Call connects. Jordan on camera. Mariela on camera.]' },
+  { type:'turn', speaker:'Jordan', line:'"Hey Mariela, thanks for hopping on. My goal in the next ten minutes is to get your Dallas–Atlanta reefer covered today at a rate that works for you. Sound good?"',
+    annot:[{t:'trust',txt:'Opens with a clear, time-boxed purpose. Mariela instantly knows the call has a point.'},{t:'tool',txt:'Camera on for the opening relationship moment.'}] },
+  { type:'turn', speaker:'Mariela', sp:'customer', line:'"Perfect, that\'s exactly what I need. It\'s temperature-sensitive and the receiver is strict on the delivery window."' },
+  { type:'turn', speaker:'Jordan', line:'"Got it. Let me show you what I\'m looking at." <span class="stage-note">(shares a single window — a live tracking map and a one-line rate)</span>',
+    fx:'share',
+    annot:[{t:'tool',txt:'Screen share, one clean window. Notifications off, no other customers visible.'},{t:'trust',txt:'Showing the lane and rate on screen makes the number feel real and transparent.'}] },
+  { type:'turn', speaker:'Jordan', line:'<span class="stage-note">(drops in chat)</span>', chat:{who:'Jordan — QVR', txt:'Load #DAL-ATL-0624 · Reefer · 34°F · Pickup today 2pm · Rate: $2,450 all-in'},
+    annot:[{t:'tool',txt:'Chat captures the key terms so Mariela can scroll back later.'},{t:'trust',txt:'Putting the rate in writing signals confidence and gives her something to forward internally.'}] },
+  { type:'decision', dk:'d1', prompt:'Mariela pauses and frowns slightly at the rate. She doesn\'t say anything. What\'s Jordan\'s best next move?',
+    options:['Keep talking through the load details to fill the silence.','Notice the reaction, pause, and ask: "What\'s your read on that rate?"','Drop the price immediately to avoid an objection.','Minimize the window and check another deal while she thinks.'],
+    best:1, bestNote:'(best)',
+    revealDid:'Jordan caught the non-verbal cue and asked, "What\'s your read on that rate?" — surfacing the concern while he could still address it.',
+    revealWhy:'Silence isn\'t agreement. Inviting the objection turns a stall into a conversation. Talking over it (A) buries the concern; caving on price (C) trains the customer to push and leaves margin on the table; checking out (D) is exactly the disengagement this course warns against.' },
+  { type:'turn', speaker:'Mariela', sp:'customer', line:'"Honestly the rate\'s fine — I just need to be sure on the delivery window. The receiver won\'t take it late."' },
+  { type:'turn', speaker:'Jordan', stage:'[Jordan invites the carrier in.]', line:'"Let me bring in the carrier so you hear it straight from them." <span class="stage-note">(Dispatch — Sunbelt Carriers joins)</span>',
+    fx:'dispatch',
+    annot:[{t:'trust',txt:'Connecting the customer directly to the carrier builds confidence and transparency.'}] },
+  { type:'turn', speaker:'Dispatch (Sunbelt)', sp:'carrier', line:'"Hey both — our driver\'s 20 minutes from Dallas pickup now, reefer pre-cooled to 34. We deliver Atlanta by 6am, well inside the window."' },
+  { type:'turn', speaker:'Mariela', sp:'customer', line:'<span class="stage-note">(sends a 👍 reaction)</span>', fx:'reaction',
+    annot:[{t:'tool',txt:'Live reaction lets Mariela signal approval without cutting anyone off.'}] },
+  { type:'decision', dk:'d2', prompt:'Everyone sounds aligned. The call is winding down. How should Jordan close?',
+    options:['Say "Great, talk soon!" and leave it open-ended.','Name the exact next step, owner, and timing — then confirm the ask.','Wait for Mariela to tell him what to do next.','End the call quickly to get to the next one.'],
+    best:1, bestNote:'(best)',
+    revealDid:'Jordan said: "Perfect. I\'ll send the rate con in five minutes — Mariela, can you sign and return it today so we lock the truck? Dispatch, you\'ll send tracking once the driver\'s loaded." Then he dropped the next steps in chat.',
+    revealWhy:'A clear ask with an owner and a deadline is what turns a good meeting into a booked load. Open-ended sign-offs (A), waiting for the customer to lead (C), and rushing off (D) all leave the deal un-closed and the relationship a little colder.',
+    chat:{who:'Jordan — QVR', txt:'Next steps · Jordan: send rate con (5 min) · Mariela: sign + return today · Dispatch: send tracking once loaded'} },
+  { type:'turn', speaker:'Mariela', sp:'customer', line:'"Done deal — send it over."', stage:'[Call ends. Load booked.]' }
+];
+
+/* ===================== STATE ===================== */
+let state = {
+  currentIndex: 0,
+  visited: new Set(['welcome']),
+  subStep: { joining:0, scenario:0 },
+  quiz: {
+    answers:  { q1:null, q2:null, q3:null, q4:null },
+    submitted:false,
+    everSubmitted:false,
+    locked:   { q1:false, q2:false, q3:false, q4:false },
+    retry:    { q1:false, q2:false, q3:false, q4:false },
+    attempts: { q1:0, q2:0, q3:0, q4:0 },
+    score: 0,
+    passed: false
+  },
+  scenario: { d1:null, d2:null },
+  reflection: { r1:'', r2:'', r3:'', r4:'' },
+  planner: { audience:'', audienceSeg:'', audienceName:'', goal:'', tools:[], open:'', info:'', cta:'' },
+  reducedMotion: false
+};
+let maxProgress = 0; // monotonic progress %
+let resumeTarget = 0; // saved index for resume prompt
+
+/* ===================== HELPERS ===================== */
+const $ = (sel, root)=> (root||document).querySelector(sel);
+const $$ = (sel, root)=> Array.prototype.slice.call((root||document).querySelectorAll(sel));
+function announce(msg){ const a=$('#announcer'); if(a){ a.textContent=''; setTimeout(()=>{a.textContent=msg;},30); } }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+const LS_KEY = 'qvr_vct_v1';
+let saveTimer = null;
+function persist(){
+  try {
+    const out = {
+      currentIndex: state.currentIndex,
+      visited: Array.from(state.visited),
+      subStep: state.subStep,
+      quiz: state.quiz,
+      scenario: state.scenario,
+      reflection: state.reflection,
+      planner: state.planner,
+      maxProgress: maxProgress
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(out));
+  } catch(e){ /* memory-only */ }
+}
+function persistDebounced(){ if(saveTimer) clearTimeout(saveTimer); saveTimer=setTimeout(persist,250); }
+function loadSaved(){
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  } catch(e){ return null; }
+}
+function applySaved(saved){
+  try {
+    if(!saved) return;
+    if(typeof saved.currentIndex==='number') state.currentIndex = Math.max(0, Math.min(SCREENS.length-1, saved.currentIndex));
+    if(Array.isArray(saved.visited)) state.visited = new Set(saved.visited);
+    if(saved.subStep) Object.assign(state.subStep, saved.subStep);
+    if(saved.quiz) state.quiz = Object.assign(state.quiz, saved.quiz);
+    if(saved.scenario) Object.assign(state.scenario, saved.scenario);
+    if(saved.reflection) Object.assign(state.reflection, saved.reflection);
+    if(saved.planner) state.planner = Object.assign(state.planner, saved.planner);
+    if(typeof saved.maxProgress==='number') maxProgress = saved.maxProgress;
+  } catch(e){ /* ignore */ }
+}
+
+let toastTimer=null;
+function toast(msg){
+  const t=$('#toast'); if(!t) return;
+  t.innerHTML='<svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> '+esc(msg);
+  t.classList.add('show');
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ===================== NAVIGATION ===================== */
+const screenEls = {}; // id -> section element
+SCREENS.forEach(s=>{ screenEls[s.id] = document.getElementById('screen-'+s.id); });
+
+function progressScreenIndices(){
+  const arr=[]; SCREENS.forEach((s,i)=>{ if(s.progressCounts) arr.push(i); }); return arr;
+}
+function computeProgress(){
+  const counted = SCREENS.filter(s=>s.progressCounts).map(s=>s.id);
+  let visitedCount=0;
+  counted.forEach(id=>{ if(state.visited.has(id)) visitedCount++; });
+  const pct = Math.round(visitedCount / PROGRESS_TOTAL * 100);
+  if(pct > maxProgress){ return {pct:pct, grew:true}; }
+  return {pct:maxProgress, grew:false};
+}
+
+function isUnlocked(index){
+  const sc = SCREENS[index];
+  if(sc.gate){ try { return !!sc.gate(state); } catch(e){ return false; } }
+  // Everything from index 6 onward shares the gate. Once the learner has ever
+  // submitted, those screens stay unlocked even if a retake toggles submitted=false.
+  if(index >= 6){ return state.quiz.everSubmitted === true; }
+  return true;
+}
+
+function canJumpTo(index){
+  if(index===state.currentIndex) return true;
+  const sc = SCREENS[index];
+  // must be visited already (jump-dots only for visited)
+  if(!state.visited.has(sc.id)) return false;
+  return isUnlocked(index);
+}
+
+function buildStepper(){
+  const nav = $('#stepper');
+  nav.innerHTML='';
+  progressScreenIndices().forEach((scrIndex, k)=>{
+    const sc = SCREENS[scrIndex];
+    const btn = document.createElement('button');
+    btn.type='button';
+    btn.className='step-dot';
+    btn.dataset.index=String(scrIndex);
+    btn.textContent=String(k+1);
+    btn.setAttribute('aria-label','Step '+(k+1)+' of '+PROGRESS_TOTAL+' — '+sc.title);
+    btn.addEventListener('click', ()=>{
+      const idx = parseInt(btn.dataset.index,10);
+      if(canJumpTo(idx)) goTo(idx);
+    });
+    nav.appendChild(btn);
+  });
+}
+
+function refreshStepper(){
+  $$('#stepper .step-dot').forEach(btn=>{
+    const idx = parseInt(btn.dataset.index,10);
+    const sc = SCREENS[idx];
+    const visited = state.visited.has(sc.id);
+    const jumpable = canJumpTo(idx);
+    btn.classList.toggle('visited', visited && idx!==state.currentIndex);
+    if(idx===state.currentIndex){ btn.setAttribute('aria-current','step'); }
+    else { btn.removeAttribute('aria-current'); }
+    btn.disabled = !jumpable;
+    if(!jumpable) btn.setAttribute('aria-disabled','true'); else btn.removeAttribute('aria-disabled');
+  });
+}
+
+function updateProgressBar(){
+  const {pct, grew} = computeProgress();
+  maxProgress = pct;
+  const fill = $('#progress-fill');
+  fill.style.width = pct + '%';
+  const track = $('#progress-track');
+  if(track){
+    track.setAttribute('aria-valuenow', String(pct));
+    const counted = SCREENS.filter(s=>s.progressCounts).map(s=>s.id);
+    let visitedCount=0; counted.forEach(id=>{ if(state.visited.has(id)) visitedCount++; });
+    track.setAttribute('aria-valuetext', visitedCount+' of '+PROGRESS_TOTAL+' sections complete');
+  }
+  if(grew && pct>0 && !state.reducedMotion){
+    fill.classList.remove('pulse'); void fill.offsetWidth; fill.classList.add('pulse');
+    setTimeout(()=>fill.classList.remove('pulse'), 700);
+  }
+}
+
+function updateAppbar(){
+  $('#step-counter-glyph').textContent = String(state.currentIndex+1).padStart(2,'0') + ' / 11';
+  $('#step-counter-sr').textContent = 'Screen '+(state.currentIndex+1)+' of 11';
+}
+
+function updateProgressLive(){
+  const counted = progressScreenIndices();
+  const pos = counted.indexOf(state.currentIndex);
+  if(pos>=0){
+    $('#progress-live').textContent = 'Step '+(pos+1)+' of '+PROGRESS_TOTAL+' — '+SCREENS[state.currentIndex].title;
+  } else {
+    $('#progress-live').textContent = SCREENS[state.currentIndex].title;
+  }
+}
+
+function nextLabelFor(index){
+  switch(SCREENS[index].id){
+    case 'welcome': return ['Start the course', true];
+    case 'objectives': return ["Let's start", true];
+    case 'overview': return ['Next: joining a meeting', true];
+    case 'joining': return ['Next: make the most of it', true];
+    case 'tips': return ['Test what you know', true];
+    case 'knowledge-check': return state.quiz.submitted ? ['Continue', true] : ['Submit Answers', false];
+    case 'practice-transition': return ['Study the call', true];
+    case 'scenario': return ['Now reflect', true];
+    case 'reflection': return ['Build my plan', true];
+    case 'planner': return ['Finish up', true];
+    case 'summary': return ['', false];
+    default: return ['Continue', true];
+  }
+}
+
+function updateFooter(){
+  const idx = state.currentIndex;
+  const back = $('#nav-back');
+  const next = $('#nav-next');
+  const hint = $('#nav-hint');
+  back.disabled = (idx===0);
+  // next button
+  const [label, isArrow] = nextLabelFor(idx);
+  if(SCREENS[idx].id==='summary'){
+    next.style.display='none';
+  } else {
+    next.style.display='';
+    let icon = isArrow ? '<svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>' : '';
+    next.innerHTML = esc(label) + ' ' + icon;
+  }
+  // default contextual hint: position among the 9 counted sections + time estimate
+  hint.textContent='';
+  if(SCREENS[idx].progressCounts){
+    const counted = progressScreenIndices();
+    const pos = counted.indexOf(idx);
+    const mins = SECTION_MIN[SCREENS[idx].id];
+    if(pos>=0 && mins){ hint.textContent = 'Section '+(pos+1)+' of '+PROGRESS_TOTAL+' · about '+mins+' min'; }
+  }
+  next.disabled=false;
+  // Knowledge check submit gating
+  if(SCREENS[idx].id==='knowledge-check' && !state.quiz.submitted){
+    const answered = Object.values(state.quiz.answers).filter(v=>v!==null).length;
+    next.disabled = (answered < 4);
+    hint.textContent = answered<4 ? ('Answer all 4 questions to submit ('+answered+' of 4 answered)') : '';
+  }
+}
+
+function focusHeading(id){
+  const el = screenEls[id];
+  if(!el) return;
+  const h = el.querySelector('h2[tabindex="-1"]');
+  if(h){ try { h.focus({preventScroll:false}); } catch(e){ h.focus(); } }
+}
+
+function render(prevIndex){
+  SCREENS.forEach((s,i)=>{
+    const el = screenEls[s.id];
+    if(!el) return;
+    if(i===state.currentIndex){
+      el.hidden=false; el.removeAttribute('inert');
+    } else {
+      el.hidden=true; el.setAttribute('inert','');
+    }
+  });
+  // mark visited
+  state.visited.add(SCREENS[state.currentIndex].id);
+  updateAppbar();
+  updateProgressBar();
+  refreshStepper();
+  updateProgressLive();
+  updateFooter();
+  // per-screen hooks
+  onScreenEnter(SCREENS[state.currentIndex].id);
+  // focus heading
+  focusHeading(SCREENS[state.currentIndex].id);
+  // scroll to top of stage
+  try { window.scrollTo({top:0, behavior: state.reducedMotion ? 'auto':'smooth'}); } catch(e){ window.scrollTo(0,0); }
+  persistDebounced();
+}
+
+function goTo(index){
+  if(index<0 || index>=SCREENS.length) return;
+  if(index>state.currentIndex && !isUnlocked(index)){
+    // blocked forward
+    if(SCREENS[index].gate || index>=6){
+      announce('Submit the knowledge check to unlock the rest of the course.');
+    }
+    return;
+  }
+  const prev = state.currentIndex;
+  state.currentIndex = index;
+  render(prev);
+}
+
+function goNext(){
+  const idx = state.currentIndex;
+  // Knowledge check special: Submit when not yet submitted
+  if(SCREENS[idx].id==='knowledge-check' && !state.quiz.submitted){
+    submitQuiz();
+    return;
+  }
+  const target = idx+1;
+  if(target<SCREENS.length){
+    if(!isUnlocked(target)){ announce('Submit the knowledge check to continue.'); return; }
+    goTo(target);
+  }
+}
+function goBack(){ if(state.currentIndex>0) goTo(state.currentIndex-1); }
+
+/* ===================== JOINING SUB-STEPPER ===================== */
+function mockFor(kind){
+  switch(kind){
+    case 'invite': return '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><span class="mock-pill"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"/></svg> Teams meeting · 2:00 PM</span></div>';
+    case 'join': return '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><span class="mock-pill hot"><svg class="icon" aria-hidden="true"><use href="#icon-video"/></svg> Join Microsoft Teams Meeting</span></div>';
+    case 'choose': return '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><span class="mock-pill hot">Desktop app</span><span class="mock-pill">Continue in browser</span></div>';
+    case 'av': return '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><span class="mock-pill"><svg class="icon" aria-hidden="true"><use href="#icon-video"/></svg> Camera</span><span class="mock-pill"><svg class="icon" aria-hidden="true"><use href="#icon-mic"/></svg> Mic</span></div>';
+    case 'joinnow': return '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><span class="mock-pill lime"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg> Join now</span></div>';
+    case 'essentials': return '<div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><span class="mock-pill"><svg class="icon" aria-hidden="true"><use href="#icon-chat"/></svg> Chat</span><span class="mock-pill"><svg class="icon" aria-hidden="true"><use href="#icon-share"/></svg> Share</span></div>';
+    default: return '';
+  }
+}
+function buildJoiningStatic(){
+  // dots
+  const dots = $('#joining-subdots');
+  dots.innerHTML='';
+  JOINING_STEPS.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='subdot';
+    b.setAttribute('aria-label','Step '+s.n+' of '+JOINING_STEPS.length);
+    b.addEventListener('click', ()=>{ state.subStep.joining=i; renderJoiningStep(); persistDebounced(); });
+    dots.appendChild(b);
+  });
+  // fallback list
+  const fb = $('#joining-fallback');
+  fb.innerHTML = JOINING_STEPS.map(s=>'<li><strong>'+esc(s.title)+'</strong> '+s.action+' <em>Why: '+esc(s.why)+'</em></li>').join('');
+}
+function renderJoiningStep(){
+  const i = state.subStep.joining;
+  const s = JOINING_STEPS[i];
+  const panel = $('#joining-panel');
+  panel.setAttribute('aria-label','Step '+(i+1)+' of '+JOINING_STEPS.length);
+  panel.innerHTML =
+    '<div><div class="substep-num">'+s.n+'</div>'+
+    '<h3 class="substep-title">'+esc(s.title)+'</h3>'+
+    '<p class="substep-action"><strong>Action:</strong> '+s.action+'</p>'+
+    '<p class="substep-why"><strong>Why it matters:</strong> '+esc(s.why)+'</p></div>'+
+    '<div class="mock-screen" aria-hidden="true">'+mockFor(s.mock)+'</div>';
+  $$('#joining-subdots .subdot').forEach((d,k)=>{
+    d.classList.toggle('active', k===i);
+    if(k===i) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current');
+  });
+  $('#joining-prev').disabled = (i===0);
+  $('#joining-next').disabled = (i===JOINING_STEPS.length-1);
+}
+
+/* ===================== KNOWLEDGE CHECK ===================== */
+function buildQuiz(){
+  const form = $('#quiz-form');
+  form.innerHTML='';
+  QUIZ.forEach((q, qi)=>{
+    const fs = document.createElement('fieldset');
+    fs.className='q-fieldset'; fs.id='fs-'+q.id;
+    let html = '<legend><span class="q-num">Q'+(qi+1)+'.</span> '+esc(q.question)+'</legend>';
+    html += '<div class="q-options">';
+    q.options.forEach((opt, oi)=>{
+      const oid = q.id+'-o'+oi;
+      html += '<div class="opt" id="opt-'+q.id+'-'+oi+'">'+
+        '<input type="radio" name="'+q.id+'" id="'+oid+'" value="'+oi+'">'+
+        '<label for="'+oid+'"><span class="opt-marker"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg></span>'+
+        '<span class="opt-text">'+esc(opt)+'</span></label>'+
+        '<p class="opt-feedback" id="fb-'+q.id+'-'+oi+'"></p>'+
+        '</div>';
+    });
+    html += '</div>';
+    html += '<div class="q-tag" id="tag-'+q.id+'" aria-hidden="true"></div>';
+    html += '<div class="q-status sr-only" id="status-'+q.id+'" role="status" aria-live="polite"></div>';
+    html += '<div class="q-rationale" id="rat-'+q.id+'"><strong>Why this matters:</strong> <span id="rat-text-'+q.id+'"></span></div>';
+    html += '<div class="q-retry-wrap" id="retry-'+q.id+'"><button type="button" class="btn btn-secondary btn-sm" data-retry="'+q.id+'"><svg class="icon" aria-hidden="true"><use href="#icon-refresh"/></svg> Try again</button></div>';
+    fs.innerHTML = html;
+    form.appendChild(fs);
+  });
+  // listeners
+  QUIZ.forEach(q=>{
+    $$('input[name="'+q.id+'"]').forEach(inp=>{
+      inp.addEventListener('change', ()=> onQuizSelect(q.id, parseInt(inp.value,10)));
+    });
+  });
+  $$('[data-retry]').forEach(btn=>{
+    btn.addEventListener('click', ()=> retryItem(btn.getAttribute('data-retry')));
+  });
+}
+
+function onQuizSelect(qid, idx){
+  state.quiz.answers[qid]=idx;
+  if(state.quiz.submitted && state.quiz.retry[qid]){
+    // immediate feedback retry mode
+    resolveItemImmediate(qid);
+  }
+  updateFooter();
+  persistDebounced();
+}
+
+function setOptState(qid){
+  const q = QUIZ.find(x=>x.id===qid);
+  const chosen = state.quiz.answers[qid];
+  q.options.forEach((opt,oi)=>{
+    const optEl = $('#opt-'+qid+'-'+oi);
+    const fbEl = $('#fb-'+qid+'-'+oi);
+    optEl.classList.remove('is-correct','is-incorrect','is-reveal','show-feedback');
+    fbEl.textContent='';
+  });
+  if(chosen===null) return;
+  const correct = q.correctIndex;
+  if(chosen===correct){
+    const optEl=$('#opt-'+qid+'-'+chosen);
+    optEl.classList.add('is-correct','show-feedback');
+    $('#fb-'+qid+'-'+chosen).textContent = q.feedback[chosen];
+    if(!state.reducedMotion){ optEl.classList.remove('settle'); void optEl.offsetWidth; optEl.classList.add('settle'); }
+  } else {
+    const chosenEl=$('#opt-'+qid+'-'+chosen);
+    chosenEl.classList.add('is-incorrect','show-feedback');
+    $('#fb-'+qid+'-'+chosen).textContent = q.feedback[chosen];
+    const revEl=$('#opt-'+qid+'-'+correct);
+    revEl.classList.add('is-reveal','show-feedback');
+    $('#fb-'+qid+'-'+correct).textContent = q.feedback[correct];
+    if(!state.reducedMotion){ chosenEl.classList.remove('shake'); void chosenEl.offsetWidth; chosenEl.classList.add('shake'); }
+  }
+}
+
+function renderItemTag(qid){
+  const q = QUIZ.find(x=>x.id===qid);
+  const chosen = state.quiz.answers[qid];
+  const tag = $('#tag-'+qid);
+  const status = $('#status-'+qid);
+  const ratWrap = $('#rat-'+qid);
+  const retryWrap = $('#retry-'+qid);
+  $('#rat-text-'+qid).textContent = q.rationale;
+  if(chosen===null){ tag.className='q-tag'; tag.innerHTML=''; ratWrap.classList.remove('show'); retryWrap.classList.remove('show'); return; }
+  if(chosen===q.correctIndex){
+    tag.className='q-tag correct show';
+    tag.innerHTML='<svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> Correct';
+    status.textContent = 'Question correct. '+q.feedback[chosen];
+    ratWrap.classList.add('show');
+    retryWrap.classList.remove('show');
+  } else {
+    tag.className='q-tag incorrect show';
+    tag.innerHTML='<svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg> Not quite — review the feedback';
+    status.textContent = 'Question incorrect. '+q.feedback[chosen]+' The correct answer is now marked.';
+    ratWrap.classList.add('show');
+    if(!state.quiz.locked[qid]) retryWrap.classList.add('show'); else retryWrap.classList.remove('show');
+  }
+}
+
+function lockItem(qid){
+  $$('input[name="'+qid+'"]').forEach(inp=> inp.disabled=true);
+}
+function unlockItem(qid){
+  $$('input[name="'+qid+'"]').forEach(inp=> inp.disabled=false);
+}
+
+function submitQuiz(){
+  // ensure all answered
+  const answered = Object.values(state.quiz.answers).filter(v=>v!==null).length;
+  if(answered<4) return;
+  state.quiz.submitted = true;
+  state.quiz.everSubmitted = true;
+  QUIZ.forEach(q=>{
+    state.quiz.attempts[q.id]++;
+    setOptState(q.id);
+    renderItemTag(q.id);
+    if(state.quiz.answers[q.id]===q.correctIndex){
+      state.quiz.locked[q.id]=true;
+      lockItem(q.id);
+    }
+  });
+  recomputeScore();
+  showResults(true);
+  // Single concise announcement via the dedicated live region (band itself is focus-only, no live role)
+  const pct = Math.round(state.quiz.score/4*100);
+  announce('You scored '+state.quiz.score+' out of 4, '+pct+' percent. '+(state.quiz.passed?'Passed.':'Not yet — you need 3 of 4.'));
+  refreshStepper();
+  updateFooter();
+  persist();
+}
+
+function recomputeScore(){
+  let correct=0;
+  QUIZ.forEach(q=>{ if(state.quiz.locked[q.id] || state.quiz.answers[q.id]===q.correctIndex) correct++; });
+  if(correct > state.quiz.score) state.quiz.score = correct; // non-decreasing
+  state.quiz.passed = state.quiz.score >= PASS_THRESHOLD;
+}
+
+function tierMessage(score){
+  if(score>=4) return ['Booked solid.',' Perfect run. You\'ve got the fundamentals locked. Now let\'s see them in action on a real call.'];
+  if(score===3) return ['Almost loaded.',' Strong work — one to firm up. Skim the feedback above, then move on; you\'re ready.'];
+  if(score===2) return ['On the right lane.',' Good start. Revisit the Overview and Tips modules for the two you missed, then continue when you\'re set.'];
+  return ["Let's re-route."," No worries — this is what practice is for. Take another pass through the Tips module, retry the questions, then keep going."];
+}
+
+function showResults(focusIt){
+  const band = $('#results-band');
+  band.classList.add('show');
+  const score = state.quiz.score;
+  const pct = Math.round(score/4*100);
+  $('#ring-num').textContent = score;
+  // ring fill
+  const circ = 2*Math.PI*52;
+  const ringFill = $('#ring-fill');
+  ringFill.setAttribute('stroke-dasharray', circ.toFixed(1));
+  const offset = circ * (1 - score/4);
+  if(state.reducedMotion){ ringFill.style.transition='none'; }
+  ringFill.setAttribute('stroke-dashoffset', offset.toFixed(1));
+  $('#score-line').textContent = 'You scored '+score+' out of 4 ('+pct+'%).';
+  const passEl = $('#pass-state');
+  const passText = $('#pass-text');
+  if(state.quiz.passed){
+    passEl.className='pass-state pass';
+    passEl.innerHTML='<svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> <span id="pass-text">Passed — threshold is 3 / 4.</span>';
+  } else {
+    passEl.className='pass-state fail';
+    passEl.innerHTML='<svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg> <span id="pass-text">Not yet — you need 3 / 4. Use Try again on the items below.</span>';
+  }
+  // mini summary
+  const mini = QUIZ.map((q,i)=>{
+    const isCorrect = state.quiz.locked[q.id] || state.quiz.answers[q.id]===q.correctIndex;
+    if(isCorrect) return 'Q'+(i+1)+' ✓';
+    return 'Q'+(i+1)+' ✗ retake';
+  }).join(' / ');
+  $('#mini-summary').textContent = mini;
+  const [tierTitle, tierBody] = tierMessage(score);
+  $('#tier-msg').innerHTML = '<strong>'+esc(tierTitle)+'</strong>'+esc(tierBody);
+  // stat in summary screen
+  const statScore = $('#stat-score'); if(statScore) statScore.textContent = score+'/4';
+  if(focusIt){
+    try { band.focus({preventScroll:true}); } catch(e){ band.focus(); }
+  }
+}
+
+function retryItem(qid){
+  if(state.quiz.locked[qid]) return;
+  state.quiz.retry[qid]=true;
+  state.quiz.answers[qid]=null;
+  // clear UI
+  $$('input[name="'+qid+'"]').forEach(inp=>{ inp.checked=false; inp.disabled=false; });
+  unlockItem(qid);
+  setOptState(qid);
+  $('#tag-'+qid).className='q-tag'; $('#tag-'+qid).innerHTML='';
+  $('#rat-'+qid).classList.remove('show');
+  $('#retry-'+qid).classList.remove('show');
+  $('#status-'+qid).textContent='Retry this question. Selecting an answer now shows feedback immediately.';
+  announce('Question '+qid.replace('q','')+' reset for another try.');
+}
+
+function resolveItemImmediate(qid){
+  const q = QUIZ.find(x=>x.id===qid);
+  // Count every answered retry selection (correct or incorrect), not just correct ones.
+  state.quiz.attempts[qid]++;
+  setOptState(qid);
+  renderItemTag(qid);
+  if(state.quiz.answers[qid]===q.correctIndex){
+    state.quiz.locked[qid]=true;
+    state.quiz.retry[qid]=false;
+    lockItem(qid);
+    $('#retry-'+qid).classList.remove('show');
+  }
+  recomputeScore();
+  showResults(false);
+  persist();
+}
+
+function retakeQuiz(){
+  state.quiz.answers={q1:null,q2:null,q3:null,q4:null};
+  state.quiz.submitted=false;
+  state.quiz.locked={q1:false,q2:false,q3:false,q4:false};
+  state.quiz.retry={q1:false,q2:false,q3:false,q4:false};
+  state.quiz.score=0; state.quiz.passed=false;
+  // attempts are kept as a lifetime counter; a full retake intentionally re-scores
+  // from scratch (the band is re-shown only on the next submit). Per-item Try-again
+  // within a submitted attempt remains non-decreasing (see recomputeScore).
+  $('#results-band').classList.remove('show');
+  QUIZ.forEach(q=>{
+    $$('input[name="'+q.id+'"]').forEach(inp=>{inp.checked=false; inp.disabled=false;});
+    setOptState(q.id);
+    $('#tag-'+q.id).className='q-tag'; $('#tag-'+q.id).innerHTML='';
+    $('#rat-'+q.id).classList.remove('show');
+    $('#retry-'+q.id).classList.remove('show');
+    $('#status-'+q.id).textContent='';
+  });
+  updateFooter();
+  refreshStepper();
+  announce('Knowledge check reset. Answer all four questions and submit again.');
+  focusHeading('knowledge-check');
+  persist();
+}
+
+function restoreQuizUI(){
+  // when re-entering after submit, reflect resolved states
+  if(!state.quiz.submitted) return;
+  QUIZ.forEach(q=>{
+    const chosen = state.quiz.answers[q.id];
+    if(chosen!==null){
+      const inp = $('#'+q.id+'-o'+chosen);
+      if(inp) inp.checked=true;
+    }
+    setOptState(q.id);
+    renderItemTag(q.id);
+    if(state.quiz.locked[q.id]) lockItem(q.id);
+  });
+  showResults(false);
+}
+
+/* ===================== SCENARIO ===================== */
+const LETTERS = ['A','B','C','D'];
+
+function buildScenarioDots(){
+  const dots = $('#scenario-subdots');
+  dots.innerHTML='';
+  SCENARIO_STEPS.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='subdot';
+    b.setAttribute('aria-label','Go to call step '+(i+1));
+    b.addEventListener('click', ()=>{
+      // can only jump to revealed steps
+      if(i<=state.subStep.scenario){ state.subStep.scenario=i; renderScenario(); persistDebounced(); }
+    });
+    dots.appendChild(b);
+  });
+}
+
+function applyTeamsFx(uptoIndex){
+  // reset
+  $('#share-surface').classList.remove('show');
+  $('#tile-dispatch').classList.remove('is-live'); $('#tile-dispatch').classList.add('joined-later');
+  $('#dispatch-status').textContent='(joins later)';
+  const reaction=$('#mariela-reaction'); reaction.hidden=true;
+  // chat
+  const chatBody=$('#chat-body');
+  let chatMsgs=[];
+  for(let i=0;i<=uptoIndex && i<SCENARIO_STEPS.length;i++){
+    const s=SCENARIO_STEPS[i];
+    if(s.fx==='share') $('#share-surface').classList.add('show');
+    if(s.fx==='dispatch'){ const t=$('#tile-dispatch'); t.classList.add('is-live'); t.classList.remove('joined-later'); $('#dispatch-status').textContent='Carrier'; }
+    if(s.fx==='reaction'){ reaction.hidden=false; if(!state.reducedMotion){ reaction.style.animation='none'; void reaction.offsetWidth; reaction.style.animation=''; } }
+    if(s.chat && (s.type!=='decision' || state.scenario[s.dk]!==null)) chatMsgs.push(s.chat);
+  }
+  if(chatMsgs.length===0){
+    chatBody.innerHTML='<span class="chat-empty">Messages Jordan drops will appear here.</span>';
+  } else {
+    chatBody.innerHTML = chatMsgs.map(m=>'<div class="chat-msg"><span class="who">'+esc(m.who)+'</span><span class="txt">'+esc(m.txt)+'</span></div>').join('');
+  }
+}
+
+function decisionHTML(s, idx){
+  const chosen = state.scenario[s.dk];
+  const revealed = chosen!==null;
+  let html = '<div class="decision" data-dk="'+s.dk+'">'+
+    '<div class="d-eyebrow"><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg> Your call</div>'+
+    '<p class="d-prompt">'+esc(s.prompt)+'</p>'+
+    '<div class="d-options" role="group" aria-label="Decision options">';
+  s.options.forEach((opt,oi)=>{
+    const isChosen = chosen===oi;
+    const isBest = oi===s.best;
+    let cls='d-option';
+    if(revealed && isChosen) cls+=' chosen';
+    if(revealed && isBest) cls+=' best';
+    let mark='';
+    if(revealed && isBest) mark='<span class="d-mark"><svg class="icon" role="img"><title>Best choice</title><use href="#icon-check"/></svg></span>';
+    else if(revealed && isChosen && !isBest) mark='<span class="d-mark" style="color:var(--danger-600)"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg></span>';
+    html += '<button type="button" class="'+cls+'" data-dk="'+s.dk+'" data-oi="'+oi+'"'+(state.scenario[s.dk]!==null?' aria-pressed="'+(isChosen?'true':'false')+'"':'')+'>'+
+      '<span class="d-key">'+LETTERS[oi]+'.</span><span>'+esc(opt)+(isBest && (s.bestNote)?' <em style="color:var(--lime-500)">'+esc(s.bestNote)+'</em>':'')+'</span>'+mark+'</button>';
+  });
+  html += '</div>';
+  html += '<div class="d-reveal'+(revealed?' show':'')+'">'+
+    '<p class="reveal-did"><strong>What Jordan did:</strong> '+esc(s.revealDid)+'</p>'+
+    '<p class="reveal-why"><strong><span aria-hidden="true">✅</span> Why it works:</strong> '+esc(s.revealWhy)+'</p></div>';
+  html += '</div>';
+  return html;
+}
+
+function turnHTML(s){
+  let html='<div class="turn">';
+  if(s.stage && !s.speaker) html+='<p class="stage-note">'+esc(s.stage)+'</p>';
+  if(s.speaker){
+    if(s.stage) html+='<p class="stage-note">'+esc(s.stage)+'</p>';
+    const spClass = s.sp==='carrier' ? ' carrier' : '';
+    html+='<p class="line"><span class="speaker'+spClass+'">'+esc(s.speaker)+':</span> '+(s.line||'')+'</p>';
+    if(s.chat) html+='<span class="chat-drop">'+esc(s.chat.txt)+'</span>';
+  }
+  if(s.annot && s.annot.length){
+    html+='<div class="annotations">';
+    s.annot.forEach(a=>{
+      const badge = a.t==='tool'?'<span aria-hidden="true">🛠</span> TOOL':(a.t==='trust'?'<span aria-hidden="true">🤝</span> TRUST':'<span aria-hidden="true">⚠</span> WATCH');
+      html+='<div class="annot '+a.t+'" role="note"><span class="annot-badge">'+badge+'</span><span>'+esc(a.txt)+'</span></div>';
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+  return html;
+}
+
+function renderScenario(){
+  const upto = state.subStep.scenario;
+  const tEl = $('#scenario-transcript');
+  let html='';
+  for(let i=0;i<=upto && i<SCENARIO_STEPS.length;i++){
+    const s=SCENARIO_STEPS[i];
+    if(s.type==='decision') html+=decisionHTML(s,i);
+    else html+=turnHTML(s);
+  }
+  tEl.innerHTML=html;
+  applyTeamsFx(upto);
+  // wire decision buttons
+  $$('#scenario-transcript .d-option').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const dk=btn.getAttribute('data-dk');
+      const oi=parseInt(btn.getAttribute('data-oi'),10);
+      chooseDecision(dk, oi);
+    });
+  });
+  // dots
+  $$('#scenario-subdots .subdot').forEach((d,k)=>{
+    d.classList.toggle('active', k===upto);
+    d.disabled = k>upto;
+  });
+  $('#scenario-prev').disabled = (upto===0);
+  // next disabled if current step is an unanswered decision, or at end
+  const cur = SCENARIO_STEPS[upto];
+  let nextDisabled=false;
+  if(cur && cur.type==='decision' && state.scenario[cur.dk]===null) nextDisabled=true;
+  if(upto>=SCENARIO_STEPS.length-1) nextDisabled=true;
+  $('#scenario-next').disabled = nextDisabled;
+  $('#scenario-next').innerHTML = (upto>=SCENARIO_STEPS.length-1)
+    ? 'Call complete'
+    : 'Advance the call <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>';
+  $('#scenario-progress').textContent = 'Step '+(upto+1)+' of '+SCENARIO_STEPS.length+(cur && cur.type==='decision' && state.scenario[cur.dk]===null ? ' — make your call to continue' : '');
+}
+
+// Plain-text summary of a single scenario step, for concise SR announcement.
+function scenarioStepText(s){
+  if(!s) return '';
+  if(s.type==='decision') return 'Your call: '+s.prompt;
+  let parts=[];
+  if(s.stage) parts.push(s.stage.replace(/^\[|\]$/g,''));
+  if(s.speaker){
+    let line=(s.line||'').replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+    parts.push(s.speaker+' says: '+line);
+  }
+  if(s.chat) parts.push('Chat: '+s.chat.txt);
+  return parts.join('. ');
+}
+
+function chooseDecision(dk, oi){
+  state.scenario[dk]=oi;
+  renderScenario();
+  const s = SCENARIO_STEPS.find(x=>x.dk===dk);
+  announce('You chose option '+LETTERS[oi]+'. '+(s?'What Jordan did: '+s.revealDid:'The reveal is now shown.'));
+  // append decision's chat drop to faux chat handled in applyTeamsFx (chat lives on step)
+  persistDebounced();
+}
+
+function scenarioNext(){
+  const cur = SCENARIO_STEPS[state.subStep.scenario];
+  if(cur && cur.type==='decision' && state.scenario[cur.dk]===null) return;
+  if(state.subStep.scenario < SCENARIO_STEPS.length-1){
+    state.subStep.scenario++;
+    renderScenario();
+    // Announce only the newly revealed step, not the whole transcript.
+    announce(scenarioStepText(SCENARIO_STEPS[state.subStep.scenario]));
+    persistDebounced();
+  }
+}
+function scenarioPrev(){
+  if(state.subStep.scenario>0){ state.subStep.scenario--; renderScenario(); persistDebounced(); }
+}
+
+/* ===================== REFLECTION ===================== */
+function autoGrow(ta){ ta.style.height='auto'; ta.style.height=(ta.scrollHeight)+'px'; }
+// Value-only sync (no listeners) — safe to call on every reflection screen entry.
+function syncReflection(){
+  $$('[data-reflect]').forEach(ta=>{
+    ta.value = state.reflection[ta.getAttribute('data-reflect')] || '';
+    autoGrow(ta);
+    ta.classList.toggle('has-content', ta.value.trim().length>0);
+  });
+}
+// Bind exactly once (from init). Attaches the input listener a single time per textarea.
+function bindReflection(){
+  $$('[data-reflect]').forEach(ta=>{
+    ta.value = state.reflection[ta.getAttribute('data-reflect')] || '';
+    autoGrow(ta);
+    ta.classList.toggle('has-content', ta.value.trim().length>0);
+    ta.addEventListener('input', ()=>{
+      const key=ta.getAttribute('data-reflect');
+      state.reflection[key]=ta.value;
+      autoGrow(ta);
+      ta.classList.toggle('has-content', ta.value.trim().length>0);
+      persistDebounced();
+    });
+  });
+}
+
+/* ===================== PLANNER ===================== */
+function composeAudience(){
+  const seg = state.planner.audienceSeg;
+  const name = state.planner.audienceName;
+  let parts=[];
+  if(seg) parts.push(seg);
+  if(name) parts.push(name);
+  state.planner.audience = parts.join(' — ');
+  return state.planner.audience;
+}
+// Arrow-key roving focus within a button group (Left/Right/Up/Down/Home/End).
+function wireArrowRoving(groupSelector){
+  const group = $(groupSelector);
+  if(!group) return;
+  const btns = $$('button', group);
+  group.addEventListener('keydown', (e)=>{
+    const keys = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'];
+    if(keys.indexOf(e.key)<0) return;
+    const list = $$('button', group);
+    const cur = list.indexOf(document.activeElement);
+    if(cur<0) return;
+    let next=cur;
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp') next=(cur-1+list.length)%list.length;
+    else if(e.key==='ArrowRight'||e.key==='ArrowDown') next=(cur+1)%list.length;
+    else if(e.key==='Home') next=0;
+    else if(e.key==='End') next=list.length-1;
+    if(next!==cur){ e.preventDefault(); list[next].focus(); }
+  });
+}
+function bindPlanner(){
+  // segmented
+  $$('.segmented [data-aud]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const val=btn.getAttribute('data-aud');
+      state.planner.audienceSeg = (state.planner.audienceSeg===val)? '' : val;
+      $$('.segmented [data-aud]').forEach(b=> b.setAttribute('aria-pressed', b.getAttribute('data-aud')===state.planner.audienceSeg ? 'true':'false'));
+      composeAudience();
+      updateSummary();
+      persistDebounced();
+    });
+  });
+  // audience name + other text fields
+  $$('[data-plan]').forEach(inp=>{
+    const key=inp.getAttribute('data-plan');
+    inp.value = state.planner[key] || '';
+    if(inp.tagName==='TEXTAREA'){ autoGrow(inp); }
+    inp.classList.toggle('has-content', (inp.value||'').trim().length>0);
+    inp.addEventListener('input', ()=>{
+      state.planner[key]=inp.value;
+      if(key==='audienceName') composeAudience();
+      if(inp.tagName==='TEXTAREA') autoGrow(inp);
+      inp.classList.toggle('has-content', (inp.value||'').trim().length>0);
+      updateSummary();
+      persistDebounced();
+    });
+  });
+  // tool chips
+  $$('.tool-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=> toggleTool(chip.getAttribute('data-tool')));
+  });
+  // arrow-key roving for the segmented audience group and tool-chip group (§13)
+  wireArrowRoving('.segmented[role="group"]');
+  wireArrowRoving('#tool-chips');
+  restorePlannerUI();
+}
+function toggleTool(tool){
+  const idx = state.planner.tools.indexOf(tool);
+  if(idx>=0){ state.planner.tools.splice(idx,1); }
+  else {
+    if(state.planner.tools.length>=2){ announce('You can pick at most two tools. Remove one to choose another.'); return; }
+    state.planner.tools.push(tool);
+  }
+  restorePlannerUI();
+  updateSummary();
+  persistDebounced();
+}
+function restorePlannerUI(){
+  $$('.segmented [data-aud]').forEach(b=> b.setAttribute('aria-pressed', b.getAttribute('data-aud')===state.planner.audienceSeg ? 'true':'false'));
+  $$('.tool-chip').forEach(chip=>{
+    const tool=chip.getAttribute('data-tool');
+    const on = state.planner.tools.indexOf(tool)>=0;
+    chip.setAttribute('aria-pressed', on?'true':'false');
+    chip.disabled = (!on && state.planner.tools.length>=2);
+  });
+  const cc=$('#chip-count');
+  const n=state.planner.tools.length;
+  cc.textContent = n+' of 2 selected';
+  cc.classList.toggle('warn', n===0);
+  if(n===0) cc.textContent = '0 of 2 selected — pick two for your plan';
+}
+function summaryRow(key, val){
+  const empty = !val || !String(val).trim();
+  return '<div class="summary-item"><span class="summary-key">'+esc(key)+'</span><span class="summary-val'+(empty?' empty':'')+'">'+(empty?'(not yet filled in)':esc(val))+'</span></div>';
+}
+function updateSummary(){
+  const p=state.planner;
+  composeAudience();
+  const any = (p.audience||p.goal||p.tools.length||p.open||p.info||p.cta);
+  const el=$('#summary-content');
+  if(!any){ el.innerHTML='<p class="summary-empty">Fill in a field and watch your plan build here.</p>'; return; }
+  el.innerHTML =
+    summaryRow('Audience', p.audience)+
+    summaryRow('Meeting goal', p.goal)+
+    summaryRow('Virtual tools (2)', p.tools.join(', '))+
+    summaryRow("How I'll open", p.open)+
+    summaryRow('Key information', p.info)+
+    summaryRow('Next action (ask)', p.cta);
+}
+
+/* ===================== DOWNLOAD ===================== */
+function na(v){ return (v && String(v).trim()) ? String(v) : '(not answered)'; }
+function buildPlanText(){
+  const p=state.planner, r=state.reflection, q=state.quiz;
+  composeAudience();
+  let d=''; try { d=new Date().toLocaleDateString(); } catch(e){ d=''; }
+  return [
+    'QVR — My Virtual Meeting Plan',
+    'Generated: '+d,
+    '',
+    'AUDIENCE: '+na(p.audience),
+    'MEETING GOAL: '+na(p.goal),
+    'VIRTUAL TOOLS (2): '+(p.tools.length? p.tools.join(', ') : '(not answered)'),
+    "HOW I'LL OPEN: "+na(p.open),
+    'KEY INFORMATION: '+na(p.info),
+    'NEXT ACTION (ask): '+na(p.cta),
+    '',
+    '--- My Reflection ---',
+    '1. Tools the QVR rep used: '+na(r.r1),
+    '2. Trust-building strategies: '+na(r.r2),
+    "3. What I'd do differently: "+na(r.r3),
+    "4. How I'll apply this: "+na(r.r4),
+    '',
+    '--- Knowledge Check ---',
+    'Score: '+q.score+'/4  (Passed: '+(q.passed?'yes':'no')+')',
+    '',
+    'Course: Enhancing Customer Engagement with Virtual Communication Tools'
+  ].join('\n');
+}
+function buildPlanHTML(){
+  const p=state.planner, r=state.reflection, q=state.quiz;
+  composeAudience();
+  let d=''; try { d=new Date().toLocaleDateString(); } catch(e){ d=''; }
+  const row=(k,v)=>'<tr><th>'+esc(k)+'</th><td>'+esc(na(v))+'</td></tr>';
+  const toolsVal = p.tools.length? p.tools.join(', ') : '(not answered)';
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>QVR — My Virtual Meeting Plan</title>'+
+    '<style>:root{--ink:#0B1F2A;--brand:#0E4D5C;--accent:#B8350A;--lime:#A9CE00;--border:#D3DBDF;}'+
+    'body{font-family:"Segoe UI",system-ui,Arial,sans-serif;color:#0B1F2A;background:#F6F8F9;margin:0;padding:32px;line-height:1.6;}'+
+    '.wrap{max-width:760px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(11,31,42,.08);}'+
+    '.hd{background:var(--ink);color:#E9F2F4;padding:28px 32px;}'+
+    '.hd h1{margin:0;font-size:24px;color:#fff;}.hd .k{color:var(--lime);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;}'+
+    '.hd .d{color:#A8BEC6;font-size:13px;margin-top:6px;}'+
+    '.bd{padding:24px 32px;}h2{font-size:16px;color:var(--brand);border-bottom:2px solid var(--border);padding-bottom:6px;margin-top:28px;}'+
+    'table{width:100%;border-collapse:collapse;margin-top:8px;}th{text-align:left;width:38%;vertical-align:top;color:var(--accent);font-size:13px;padding:8px 12px 8px 0;}td{padding:8px 0;vertical-align:top;}'+
+    'tr{border-bottom:1px solid var(--border);}.ft{padding:18px 32px;background:#EDF1F3;font-size:12px;color:#6B7A82;}'+
+    '@media print{body{background:#fff;padding:0;}.wrap{box-shadow:none;}}</style></head><body>'+
+    '<div class="wrap"><div class="hd"><div class="k">QVR Learning</div><h1>My Virtual Meeting Plan</h1><div class="d">Generated: '+esc(d)+'</div></div>'+
+    '<div class="bd"><h2>The Plan</h2><table>'+
+    row('Audience',p.audience)+row('Meeting goal',p.goal)+'<tr><th>Virtual tools (2)</th><td>'+esc(toolsVal)+'</td></tr>'+
+    row("How I'll open",p.open)+row('Key information',p.info)+row('Next action (ask)',p.cta)+'</table>'+
+    '<h2>My Reflection</h2><table>'+
+    row('1. Tools the QVR rep used',r.r1)+row('2. Trust-building strategies',r.r2)+row("3. What I'd do differently",r.r3)+row("4. How I'll apply this",r.r4)+'</table>'+
+    '<h2>Knowledge Check</h2><table><tr><th>Score</th><td>'+q.score+'/4 (Passed: '+(q.passed?'yes':'no')+')</td></tr></table>'+
+    '</div><div class="ft">Course: Enhancing Customer Engagement with Virtual Communication Tools · A QVR Learning experience · Designed by Shyanne Dumont</div></div></body></html>';
+}
+function plannerHasMin(){
+  return (state.planner.audience && state.planner.audience.trim()) && (state.planner.goal && state.planner.goal.trim());
+}
+function showDownloadErr(msg){
+  const e=$('#download-err'); if(!e) return;
+  $('#download-err-text').textContent=msg;
+  e.classList.add('show');
+  setTimeout(()=>e.classList.remove('show'), 5000);
+}
+function downloadPlan(format){
+  try {
+    if(!plannerHasMin()){
+      showDownloadErr('Add at least your audience and goal before downloading.');
+      announce('Add at least your audience and goal before downloading.');
+      return;
+    }
+    const text = buildPlanText();
+    const mime = format==='html' ? 'text/html' : 'text/plain';
+    const name = format==='html' ? 'QVR-Meeting-Plan.html' : 'QVR-Meeting-Plan.txt';
+    const body = format==='html' ? buildPlanHTML() : text;
+    const blob = new Blob([body], {type: mime+';charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href=url; a.download=name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>{ try{URL.revokeObjectURL(url);}catch(e){} }, 0);
+    announce('Your plan has been downloaded as '+name);
+    toast('Plan ready. Go run a great meeting.');
+  } catch(err){
+    showDownloadErr('Download was blocked here — your plan preview stays on screen so you can copy it.');
+    announce('Download could not complete. Your plan preview remains on screen to copy.');
+  }
+}
+
+/* ===================== SUMMARY / CELEBRATION ===================== */
+function confetti(){
+  if(state.reducedMotion) return;
+  const layer=$('#confetti-layer');
+  const colors=['#C7F000','#FF5A1F','#A9CE00','#D8420C'];
+  for(let i=0;i<60;i++){
+    const d=document.createElement('div');
+    d.className='confetti';
+    d.style.left=(Math.random()*100)+'%';
+    d.style.background=colors[i%colors.length];
+    d.style.animationDelay=(Math.random()*300)+'ms';
+    d.style.animationDuration=(550+Math.random()*400)+'ms';
+    d.style.transform='rotate('+(Math.random()*360)+'deg)';
+    layer.appendChild(d);
+    setTimeout(()=>{ if(d.parentNode) d.remove(); }, 1400);
+  }
+}
+function sparkBurst(container){
+  if(state.reducedMotion || !container) return;
+  const colors=['#C7F000','#FF5A1F'];
+  for(let i=0;i<14;i++){
+    const s=document.createElement('div');
+    s.className='spark';
+    s.style.left=(40+Math.random()*20)+'%';
+    s.style.top=(20+Math.random()*30)+'%';
+    s.style.background=colors[i%2];
+    s.style.animationDelay=(Math.random()*200)+'ms';
+    container.appendChild(s);
+    setTimeout(()=>{ if(s.parentNode) s.remove(); }, 800);
+  }
+}
+
+/* ===================== PER-SCREEN ENTER HOOK ===================== */
+function onScreenEnter(id){
+  switch(id){
+    case 'joining': renderJoiningStep(); break;
+    case 'knowledge-check': restoreQuizUI(); break;
+    case 'practice-transition':
+      if(!state.reducedMotion){ sparkBurst($('#transition-hero')); }
+      break;
+    case 'scenario': buildScenarioDots(); renderScenario(); break;
+    case 'reflection': syncReflection(); break;
+    case 'planner': updateSummary(); break;
+    case 'summary':
+      { const ss=$('#stat-score'); if(ss) ss.textContent=state.quiz.score+'/4';
+        const sp=$('#stat-pass');
+        if(sp){
+          sp.hidden=false;
+          if(state.quiz.passed){ sp.className='stat-pass pass'; sp.innerHTML='<svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg> Passed'; }
+          else { sp.className='stat-pass fail'; sp.innerHTML='<svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg> Almost there'; }
+        }
+      }
+      $('#complete-state').classList.remove('show');
+      $('#summary-main').style.display='';
+      if(!state.reducedMotion){ sparkBurst($('#summary-feature')); }
+      break;
+  }
+}
+
+/* ===================== REDUCED MOTION ===================== */
+function setupReducedMotion(){
+  let mq=null;
+  try { mq = window.matchMedia('(prefers-reduced-motion: reduce)'); }
+  catch(e){ state.reducedMotion = true; document.body.classList.add('reduce-motion'); return; }
+  if(!mq){ state.reducedMotion = true; document.body.classList.add('reduce-motion'); return; }
+  const apply=()=>{
+    state.reducedMotion = !!mq.matches;
+    document.body.classList.toggle('reduce-motion', state.reducedMotion);
+  };
+  apply();
+  try {
+    if(mq.addEventListener) mq.addEventListener('change', apply);
+    else if(mq.addListener) mq.addListener(apply);
+  } catch(e){ /* ignore */ }
+}
+
+/* ===================== EVENT WIRING ===================== */
+function wireEvents(){
+  $('#nav-next').addEventListener('click', goNext);
+  $('#nav-back').addEventListener('click', goBack);
+
+  // Joining sub-stepper
+  $('#joining-prev').addEventListener('click', ()=>{ if(state.subStep.joining>0){state.subStep.joining--; renderJoiningStep(); persistDebounced();} });
+  $('#joining-next').addEventListener('click', ()=>{ if(state.subStep.joining<JOINING_STEPS.length-1){state.subStep.joining++; renderJoiningStep(); persistDebounced();} });
+
+  // Pre-flight checkboxes
+  $$('.preflight-check').forEach(cb=>{
+    cb.addEventListener('click', ()=>{
+      const on = cb.getAttribute('aria-checked')==='true';
+      cb.setAttribute('aria-checked', on?'false':'true');
+    });
+    cb.addEventListener('keydown', (e)=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); cb.click(); } });
+  });
+
+  // Knowledge check results buttons
+  $('#kc-retake').addEventListener('click', retakeQuiz);
+  $('#kc-review').addEventListener('click', ()=>{ const f=$('#quiz-form'); if(f) f.scrollIntoView({behavior: state.reducedMotion?'auto':'smooth', block:'start'}); });
+
+  // Scenario
+  $('#scenario-next').addEventListener('click', scenarioNext);
+  $('#scenario-prev').addEventListener('click', scenarioPrev);
+
+  // Planner downloads
+  $('#dl-txt').addEventListener('click', ()=>downloadPlan('txt'));
+  $('#dl-html').addEventListener('click', ()=>downloadPlan('html'));
+  $('#plan-save').addEventListener('click', ()=>{ persist(); toast('Progress saved on this device.'); });
+
+  // Summary buttons
+  $('#summary-dl').addEventListener('click', ()=>downloadPlan('txt'));
+  $('#summary-restart').addEventListener('click', startOver);
+  $('#finish-exit').addEventListener('click', finishExit);
+  $('#review-start').addEventListener('click', ()=>{ $('#complete-state').classList.remove('show'); $('#summary-main').style.display=''; goTo(1); });
+  $('#complete-dl').addEventListener('click', ()=>downloadPlan('txt'));
+
+  // Resume prompt
+  $('#resume-yes').addEventListener('click', ()=>{ $('#resume-prompt').classList.remove('show'); goTo(resumeTarget||0); });
+  $('#resume-no').addEventListener('click', ()=>{ $('#resume-prompt').classList.remove('show'); fullReset(); });
+
+  // Enter-to-advance (footer primary), excluding text fields
+  document.addEventListener('keydown', (e)=>{
+    if(e.key!=='Enter') return;
+    const ae=document.activeElement;
+    if(!ae) return;
+    const tag=ae.tagName;
+    const isText = tag==='TEXTAREA' || (tag==='INPUT' && (ae.type==='text'||ae.type==='search'||ae.type==='email'||ae.type==='url'));
+    if(isText) return;
+    // don't hijack when focus is on a button/link/radio (they handle their own Enter)
+    if(tag==='BUTTON' || tag==='A' || tag==='SUMMARY') return;
+    if(tag==='INPUT' && ae.type==='radio') return;
+    const next=$('#nav-next');
+    if(next && next.style.display!=='none' && !next.disabled){
+      e.preventDefault();
+      goNext();
+    }
+  });
+}
+
+function finishExit(){
+  $('#summary-main').style.display='none';
+  $('#complete-state').classList.add('show');
+  confetti();
+  announce('Course complete. Now go book something.');
+  try { $('#review-start').focus(); } catch(e){}
+}
+
+function startOver(){
+  fullReset();
+}
+function fullReset(){
+  // wipe persistence + reset state
+  try { localStorage.removeItem(LS_KEY); } catch(e){}
+  state = {
+    currentIndex: 0,
+    visited: new Set(['welcome']),
+    subStep: { joining:0, scenario:0 },
+    quiz: { answers:{q1:null,q2:null,q3:null,q4:null}, submitted:false, everSubmitted:false, locked:{q1:false,q2:false,q3:false,q4:false}, retry:{q1:false,q2:false,q3:false,q4:false}, attempts:{q1:0,q2:0,q3:0,q4:0}, score:0, passed:false },
+    scenario: { d1:null, d2:null },
+    reflection: { r1:'', r2:'', r3:'', r4:'' },
+    planner: { audience:'', audienceSeg:'', audienceName:'', goal:'', tools:[], open:'', info:'', cta:'' },
+    reducedMotion: state.reducedMotion
+  };
+  maxProgress = 0;
+  // reset UI bits
+  $('#results-band').classList.remove('show');
+  $('#complete-state').classList.remove('show');
+  $('#summary-main').style.display='';
+  buildQuiz();
+  // reset reflection/planner field values
+  $$('[data-reflect]').forEach(ta=>{ ta.value=''; ta.classList.remove('has-content'); autoGrow(ta); });
+  $$('[data-plan]').forEach(inp=>{ inp.value=''; inp.classList.remove('has-content'); });
+  restorePlannerUI();
+  updateSummary();
+  $$('.preflight-check').forEach(cb=> cb.setAttribute('aria-checked','false'));
+  goTo(0);
+  announce('Course reset. Starting from the beginning.');
+}
+
+/* ===================== INIT ===================== */
+function init(){
+  setupReducedMotion();
+  buildStepper();
+  buildJoiningStatic();
+  buildQuiz();
+  bindReflection();
+  bindPlanner();
+  wireEvents();
+
+  // attempt restore
+  const saved = loadSaved();
+  let showResume=false;
+  if(saved){
+    applySaved(saved);
+    // restore field values into DOM
+    $$('[data-reflect]').forEach(ta=>{ ta.value=state.reflection[ta.getAttribute('data-reflect')]||''; autoGrow(ta); ta.classList.toggle('has-content', ta.value.trim().length>0); });
+    $$('[data-plan]').forEach(inp=>{ inp.value=state.planner[inp.getAttribute('data-plan')]||''; if(inp.tagName==='TEXTAREA') autoGrow(inp); inp.classList.toggle('has-content',(inp.value||'').trim().length>0); });
+    restorePlannerUI();
+    if(state.quiz.submitted){ restoreQuizUI(); }
+    if(typeof saved.currentIndex==='number' && saved.currentIndex>0){ showResume=true; }
+  }
+
+  if(showResume){
+    // park on welcome, show resume prompt; the Resume button jumps to resumeTarget
+    resumeTarget = state.currentIndex;
+    state.currentIndex = 0;
+    render(0);
+    $('#resume-prompt').classList.add('show');
+  } else {
+    render(0);
+  }
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else { init(); }
+
+})();
+/* ===================== END BLOCK 6 ===================== */
+</script>
+</body>
+</html>
